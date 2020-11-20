@@ -14,7 +14,7 @@ class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 265,
+      height: 310,
       width: double.infinity,
       child: Column(
         children: <Widget>[
@@ -73,7 +73,7 @@ class PopularFoodTiles extends StatelessWidget {
                 ),
                 child: Container(
                   width: 170,
-                  height: 210,
+                  height: 250,
                   child: Column(
                     children: <Widget>[
                       Stack(
@@ -120,10 +120,9 @@ class PopularFoodTiles extends StatelessWidget {
                       ),
                       RaisedButton(
                           child: Text("add to cart"),
-                          onPressed: (){
+                          onPressed: () {
                             addToCart(this.name, this.price);
-                          }
-                      ),
+                          }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -341,25 +340,23 @@ class PopularFoodItems extends StatelessWidget {
   }
 }
 
-
- //getItems() async {
-   //await Firebase.initializeApp();
-   //FirebaseFirestore.instance.collection("items")
-   //.getDocuments()
-   //.then(QuerySnapshot snapshot){
-     //snapshot.documents.forEach((f) => return PopularFoodTiles(
-       //  name: f.name,
-         // imageUrl:
-     //));
-   //};
-  //return PopularFoodTiles(
-    //name: "Noodles",
-    //imageUrl: "",
-  //);
+//getItems() async {
+//await Firebase.initializeApp();
+//FirebaseFirestore.instance.collection("items")
+//.getDocuments()
+//.then(QuerySnapshot snapshot){
+//snapshot.documents.forEach((f) => return PopularFoodTiles(
+//  name: f.name,
+// imageUrl:
+//));
+//};
+//return PopularFoodTiles(
+//name: "Noodles",
+//imageUrl: "",
+//);
 //}
 
-
-void addToCart(var name, var price){
+void addToCart(var name, var price) {
   quantity.add(1);
   items.add(name);
   prices.add(price);

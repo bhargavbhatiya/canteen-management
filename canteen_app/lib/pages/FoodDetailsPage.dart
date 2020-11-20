@@ -64,7 +64,9 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                       slideImage2: "assets/images/bestfood/ic_best_food_9.jpeg",
                       slideImage3: "assets/images/bestfood/ic_best_food_10.jpeg"),
                 ),*/
-
+                SizedBox(
+                  height: 5,
+                ),
                 FoodTitleWidget(
                     productName: "Grilled Salmon",
                     productPrice: "\$96.00",
@@ -73,7 +75,6 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   height: 15,
                 ),
                 AddToCartMenu(),
-                BottomMenu(),
                 SizedBox(
                   height: 15,
                 ),
@@ -178,96 +179,6 @@ class FoodTitleWidget extends StatelessWidget {
           ],
         )
       ],
-    );
-  }
-}
-
-class BottomMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.timelapse,
-                color: Color(0xFF404aff),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "12pm-3pm",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.directions,
-                color: Color(0xFF23c58a),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "3.5 km",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.map,
-                color: Color(0xFFff0654),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "Map View",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Icon(
-                Icons.directions_bike,
-                color: Color(0xFFe95959),
-                size: 35,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "Delivery",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFa9a9a9),
-                    fontWeight: FontWeight.w300),
-              )
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

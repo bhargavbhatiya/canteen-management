@@ -1,4 +1,5 @@
 import 'package:canteen_app/pages/HomePage.dart';
+import 'package:canteen_app/pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
