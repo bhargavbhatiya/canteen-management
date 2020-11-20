@@ -1,5 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:canteen_app/global.dart';
+
+class SignInButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Color(0xFFfbab66),
+          ),
+          BoxShadow(
+            color: Color(0xFFf7418c),
+          ),
+        ],
+        gradient: new LinearGradient(
+            colors: [Color(0xFFf7418c), Color(0xFFfbab66)],
+            begin: const FractionalOffset(0.2, 0.2),
+            end: const FractionalOffset(1.0, 1.0),
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp),
+      ),
+      child: MaterialButton(
+          highlightColor: Colors.transparent,
+          splashColor: Color(0xFFf7418c),
+          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+            child: Text(
+              "PLACE ORDER",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25.0,
+                  fontFamily: "WorkSansBold"),
+            ),
+          ),
+          onPressed: () => {
+            placeOrder()
+          }),
+    );
+  }
+}
+
+bool payment = false;
+
+void placeOrder() async {
+  await Firebase.initializeApp();
+  print("fuc called");
+  FirebaseFirestore.instance
+      .collection('orders')
+      .add({
+    "amount": 100,
+    "items": items,
+    "user": currentUser,
+    "quantity":quantity,
+    "payment": payment,
+    "orderid": orders + 1,
+  })
+      .then((result) => {
+    print("success"),
+    Dialog(child: Text("Ordered sucessfully"),),
+    updateUser()
+  })
+      .catchError((err) => Dialog(child: Text(err)));
+}
+
+void updateUser(){
+  FirebaseFirestore.instance.collection("users")
+      .document(uid)
+      .updateData({
+    "orders": [1]
+  });
+}
+
 
 class FoodOrderPage extends StatefulWidget {
   @override
@@ -96,6 +175,10 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
                   height: 10,
                 ),
                 PaymentMethodWidget(),
+                SizedBox(
+                  height: 10,
+                ),
+                SignInButtonWidget(),
               ],
             ),
           ),
