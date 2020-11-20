@@ -32,7 +32,7 @@ class SignInButtonWidget extends StatelessWidget {
           //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
             child: Text(
               "PLACE ORDER",
               style: TextStyle(
@@ -41,9 +41,7 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-          onPressed: () => {
-            placeOrder()
-          }),
+          onPressed: () => {placeOrder()}),
     );
   }
 }
@@ -56,29 +54,28 @@ void placeOrder() async {
   FirebaseFirestore.instance
       .collection('orders')
       .add({
-    "amount": 100,
-    "items": items,
-    "user": currentUser,
-    "quantity":quantity,
-    "payment": payment,
-    "orderid": orders + 1,
-  })
+        "amount": 100,
+        "items": items,
+        "user": currentUser,
+        "quantity": quantity,
+        "payment": payment,
+        "orderid": orders + 1,
+      })
       .then((result) => {
-    print("success"),
-    Dialog(child: Text("Ordered sucessfully"),),
-    updateUser()
-  })
+            print(result),
+            Dialog(
+              child: Text("Ordered sucessfully"),
+            ),
+            updateUser()
+          })
       .catchError((err) => Dialog(child: Text(err)));
 }
 
-void updateUser(){
-  FirebaseFirestore.instance.collection("users")
-      .document(uid)
-      .updateData({
+void updateUser() {
+  FirebaseFirestore.instance.collection("users").document(uid).updateData({
     "orders": [1]
   });
 }
-
 
 class FoodOrderPage extends StatefulWidget {
   @override
@@ -118,7 +115,7 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -150,11 +147,7 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
                     productImage: "ic_popular_food_4",
                     productCartQuantity: "5"),
                 SizedBox(
-                  height: 10,
-                ),
-                PromoCodeWidget(),
-                SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 TotalCalculationWidget(),
                 SizedBox(
@@ -340,45 +333,6 @@ class TotalCalculationWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class PromoCodeWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.only(left: 3, right: 3),
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Color(0xFFfae3e2).withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(0, 1),
-          ),
-        ]),
-        child: TextFormField(
-          decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFe6e1e1), width: 1.0),
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFe6e1e1), width: 1.0),
-                  borderRadius: BorderRadius.circular(7)),
-              fillColor: Colors.white,
-              hintText: 'Add Your Promo Code',
-              filled: true,
-              suffixIcon: IconButton(
-                  icon: Icon(
-                    Icons.local_offer,
-                    color: Color(0xFFfd2c2c),
-                  ),
-                  onPressed: () {
-                    debugPrint('222');
-                  })),
         ),
       ),
     );
