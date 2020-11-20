@@ -1,9 +1,35 @@
+
 import 'package:canteen_app/animation/ScaleRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'SignInPage.dart';
+import 'package:canteen_app/global.dart';
 
+TextEditingController name = new TextEditingController();
+TextEditingController email = new TextEditingController();
+
+void createRecord() async{
+  await Firebase.initializeApp();
+  print("fuc called");
+  currentUser = name.text;
+  FirebaseFirestore.instance
+      .collection('users')
+      .add({
+    "email": email.text,
+    "orders": [],
+    "name": name.text,
+  })
+      .then((result) => {
+        uid = result.id,
+    print("success"),
+    print(uid),
+    Dialog(child: Text("Updated sucessfully"),),
+  })
+      .catchError((err) => Dialog(child: Text(err)));
+
+}
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,6 +80,7 @@ class SignUpPage extends StatelessWidget {
                       Flexible(
                         flex: 1,
                         child: TextField(
+                          controller: name,
                           showCursor: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -71,7 +98,7 @@ class SignUpPage extends StatelessWidget {
                               fontFamily: defaultFontFamily,
                               fontSize: defaultFontSize,
                             ),
-                            hintText: "First Name",
+                            hintText: "Name",
                           ),
                         ),
                       ),
@@ -81,6 +108,7 @@ class SignUpPage extends StatelessWidget {
                       Flexible(
                         flex: 1,
                         child: TextField(
+                          controller: email,
                           showCursor: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -98,7 +126,7 @@ class SignUpPage extends StatelessWidget {
                               fontFamily: defaultFontFamily,
                               fontSize: defaultFontSize,
                             ),
-                            hintText: "Last Name",
+                            hintText: "Email",
                           ),
                         ),
                       ),
@@ -277,7 +305,9 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-          onPressed: () => {}),
+          onPressed: () => {
+             createRecord()
+          }),
     );
   }
 }

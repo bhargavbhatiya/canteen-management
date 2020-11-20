@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "527995241280",
+    "firebase_url": "https://canteen-e94a4.firebaseio.com",
+    "project_id": "canteen-e94a4",
+    "storage_bucket": "canteen-e94a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527995241280:android:6fafad1642f617576a70a5",
+        "android_client_info": {
+          "package_name": "com.example.canteen_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527995241280-g3koai8ag5effov2nl8bkglee8psemcg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz0qJ3RBCaHyYGynjYtd95bQZgTkvHIf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527995241280-g3koai8ag5effov2nl8bkglee8psemcg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

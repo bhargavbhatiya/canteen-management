@@ -1,6 +1,9 @@
 import 'package:canteen_app/animation/ScaleRoute.dart';
+import 'package:canteen_app/global.dart';
 import 'package:flutter/material.dart';
 import 'package:canteen_app/pages/FoodDetailsPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class PopularFoodsWidget extends StatefulWidget {
   @override
@@ -115,6 +118,12 @@ class PopularFoodTiles extends StatelessWidget {
                           )
                         ],
                       ),
+                      RaisedButton(
+                          child: Text("add to cart"),
+                          onPressed: (){
+                            addToCart(this.name, this.price);
+                          }
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -218,7 +227,7 @@ class PopularFoodTiles extends StatelessWidget {
                                     color: Color(0xFF6e6e71),
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600)),
-                          )
+                          ),
                         ],
                       )
                     ],
@@ -262,6 +271,7 @@ class PopularFoodItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       scrollDirection: Axis.horizontal,
+      //itemBuilder: (BuildContext ctxt, int index) => getItems(),
       children: <Widget>[
         PopularFoodTiles(
             name: "Fried Egg",
@@ -329,4 +339,30 @@ class PopularFoodItems extends StatelessWidget {
       ],
     );
   }
+}
+
+
+ //getItems() async {
+   //await Firebase.initializeApp();
+   //FirebaseFirestore.instance.collection("items")
+   //.getDocuments()
+   //.then(QuerySnapshot snapshot){
+     //snapshot.documents.forEach((f) => return PopularFoodTiles(
+       //  name: f.name,
+         // imageUrl:
+     //));
+   //};
+  //return PopularFoodTiles(
+    //name: "Noodles",
+    //imageUrl: "",
+  //);
+//}
+
+
+void addToCart(var name, var price){
+  quantity.add(1);
+  items.add(name);
+  prices.add(price);
+  print(quantity.length);
+  print(items.length);
 }
