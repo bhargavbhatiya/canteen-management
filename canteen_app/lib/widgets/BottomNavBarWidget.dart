@@ -1,3 +1,4 @@
+import 'package:canteen_app/pages/FoodOrderPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,6 +14,12 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
+        if (_selectedIndex == 1){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FoodOrderPage()),
+          );
+        }
 //        navigateToScreens(index);
       });
     }
