@@ -47,6 +47,7 @@ class SignInButtonWidget extends StatelessWidget {
 }
 
 bool payment = false;
+String t = total.toString();
 
 void placeOrder() async {
   await Firebase.initializeApp();
@@ -54,6 +55,15 @@ void placeOrder() async {
   FirebaseFirestore.instance
       .collection('orders')
       .add({
+/// ui
+    "amount": total,
+    "items": items,
+    "user": currentUser,
+    "quantity":quantity,
+    "payment": payment,
+    "orderid": orders + 1,
+  })
+=======
         "amount": 100,
         "items": items,
         "user": currentUser,
@@ -61,6 +71,7 @@ void placeOrder() async {
         "payment": payment,
         "orderid": orders + 1,
       })
+/// main
       .then((result) => {
             print(result),
             Dialog(
@@ -87,27 +98,123 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0xFFFAFAFA),
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xFF3a3737),
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color(0xFFFAFAFA),
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Color(0xFF3a3737),
+              ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          title: Center(
-            child: Text(
-              "Item Carts",
-              style: TextStyle(
-                  color: Color(0xFF3a3737),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18),
-              textAlign: TextAlign.center,
+            title: Center(
+              child: Text(
+                "Item Carts",
+                style: TextStyle(
+                    color: Color(0xFF3a3737),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
             ),
+            brightness: Brightness.light,
+            actions: <Widget>[
+              CartIconWithBadge(),
+            ],
           ),
+/// ui
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      "Your Food Cart",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF3a3a3b),
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+              Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFfae3e2).withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 1),
+                  ),
+                ]),
+                child: Card(
+                  color: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(left: 25, right: 30, top: 10, bottom: 10),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "items",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            ),
+                            Text(
+                              "price",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            ),
+                            Text(
+                              "quantity",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            ),
+                            Text(
+                              "Amount",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+=======
           brightness: Brightness.light,
           actions: <Widget>[
             CartIconWithBadge(),
@@ -162,20 +269,101 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
                         color: Color(0xFF3a3a3b),
                         fontWeight: FontWeight.w600),
                     textAlign: TextAlign.left,
+/// main
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                PaymentMethodWidget(),
-                SizedBox(
-                  height: 10,
-                ),
-                SignInButtonWidget(),
-              ],
+              ),
+
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+                      width: double.maxFinite,
+                      height: 300,
+                      child: ListDisplay(),
+                    )),
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Color(0xFFfae3e2).withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 1,
+                        offset: Offset(0, 1),
+                      ),
+                    ]),
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.only(left: 25, right: 30, top: 10, bottom: 10),
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  "Total",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFF3a3a3b),
+                                      fontWeight: FontWeight.w600),
+                                  textAlign: TextAlign.left,
+                                ),
+                                Text(
+                                  total.toString(),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color(0xFF3a3a3b),
+                                      fontWeight: FontWeight.w600),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      "Payment Method",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF3a3a3b),
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  PaymentMethodWidget(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SignInButtonWidget(),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }
 
@@ -265,54 +453,17 @@ class TotalCalculationWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    "Grilled Salmon",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFF3a3a3b),
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    "\$192",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFF3a3a3b),
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.left,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "Meat vegetable",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFF3a3a3b),
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    "\$102",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFF3a3a3b),
-                        fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.left,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
+                  ListView.builder(
+                    itemCount: items.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return new Text(items[index] + "       " + quantity[index].toString() + "         " + prices[index].toString(),
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xFF3a3a3b),
+                              fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.left,
+                        );
+                      }),
                   Text(
                     "Total",
                     style: TextStyle(
@@ -322,7 +473,7 @@ class TotalCalculationWidget extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    "\$292",
+                    total.toString(),
                     style: TextStyle(
                         fontSize: 18,
                         color: Color(0xFF3a3a3b),
