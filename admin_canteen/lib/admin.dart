@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:admin_canteen/add_product.dart';
@@ -63,7 +64,9 @@ class _AdminState extends State<Admin> {
         return Column(
           children: <Widget>[
             FlatButton.icon(
-              onPressed: null,
+              onPressed: () {
+                _startAlert();
+              },
               icon: Icon(
                 Icons.restaurant,
                 size: 30.0,
@@ -74,7 +77,9 @@ class _AdminState extends State<Admin> {
                   style: TextStyle(fontSize: 30.0, color: Colors.green)),
             ),
             FlatButton.icon(
-              onPressed: null,
+              onPressed: () {
+                _stopAlert();
+              },
               icon: Icon(
                 Icons.restaurant,
                 size: 30.0,
@@ -89,7 +94,7 @@ class _AdminState extends State<Admin> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 children: <Widget>[
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Card(
                       child: ListTile(
@@ -103,7 +108,7 @@ class _AdminState extends State<Admin> {
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
                     ),
-                  ),
+                  ),*/
                   Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Card(
@@ -118,7 +123,7 @@ class _AdminState extends State<Admin> {
                               icon: Icon(Icons.category),
                               label: Text("Categories")),
                           subtitle: Text(
-                            '23',
+                            '0',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
@@ -137,10 +142,15 @@ class _AdminState extends State<Admin> {
                             },
                             icon: Icon(Icons.emoji_food_beverage),
                             label: Text("Producs")),
+                        subtitle: Text(
+                          '0',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: active, fontSize: 60.0),
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: Card(
                       child: ListTile(
@@ -154,7 +164,7 @@ class _AdminState extends State<Admin> {
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
                     ),
-                  ),
+                  ),*/
                   Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: Card(
@@ -164,7 +174,7 @@ class _AdminState extends State<Admin> {
                               icon: Icon(Icons.shopping_cart),
                               label: Text("Orders")),
                           subtitle: Text(
-                            '5',
+                            '0',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
@@ -250,5 +260,27 @@ class _AdminState extends State<Admin> {
       ],
     );
     showDialog(context: context, builder: (_) => alert);
+  }
+
+  void _stopAlert() {
+    try {
+      FirebaseFirestore.instance
+          .collection('startstop')
+          .doc('ZR6zBFDKChGnlf0WRe7W')
+          .update({'value': false});
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void _startAlert() {
+    try {
+      FirebaseFirestore.instance
+          .collection('startstop')
+          .doc('ZR6zBFDKChGnlf0WRe7W')
+          .update({'value': true});
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

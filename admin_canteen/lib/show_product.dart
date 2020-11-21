@@ -9,23 +9,17 @@ class ShowProduct extends StatefulWidget {
 }
 
 String mrp;
-Image m;
+String name;
+String description;
+String available;
+String category;
+String id;
 
 class VideoScreenState extends State<ShowProduct> {
   VideoScreenState();
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Row(children: <Widget>[
-        Expanded(
-            child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.update,
-                ),
-                label: Text('Update Products')))
-      ])),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('products').snapshots(),
           builder:
@@ -39,22 +33,27 @@ class VideoScreenState extends State<ShowProduct> {
             return ListView(
               children: snapshot.data.docs.map((document) {
                 mrp = document['price'].toString();
+                name = document['name'];
+                description = document['description'];
+                category = document['category'];
+                available = document['available'];
+                id = document['id'].toString();
                 return Center(
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.2,
                     height: MediaQuery.of(context).size.height / 6,
                     child: Text("\nName : " +
-                        document['name'] +
+                        name +
                         '\n' +
                         "Description : " +
-                        document['description'] +
+                        description +
                         "\nProduct category : " +
-                        document['category'] +
+                        category +
                         "\nPrice is : " +
                         mrp +
                         '\n' +
                         "Availaible : " +
-                        document['available'] +
+                        available +
                         '\n'),
                   ),
                 );
@@ -62,5 +61,22 @@ class VideoScreenState extends State<ShowProduct> {
             );
           }),
     );
+  }
+
+  void _changeAvailability(String id, String available) {
+    try {
+      String ava;
+      if (available == 'Y') {
+        ava = 'N';
+      } else {
+        ava = 'Y';
+      }
+      FirebaseFirestore.instance
+          .collection('products')
+          .doc(id)
+          .update({'available': ava});
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
