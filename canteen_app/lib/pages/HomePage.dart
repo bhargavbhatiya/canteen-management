@@ -6,6 +6,7 @@ import 'package:canteen_app/widgets/SearchWidget.dart';
 import 'package:canteen_app/widgets/TopMenus.dart';
 import 'package:flutter/material.dart';
 import 'SignInPage.dart';
+import 'package:canteen_app/trial.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -61,9 +62,54 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               SearchWidget(),
+              Text(
+                "All Food Items",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Color(0xFF3a3a3b),
+                    fontWeight: FontWeight.w300),
+              ),
               //TopMenus(),
-              PopularFoodsWidget(),
-              BestFoodWidget(),
+              ShowCategory(),
+              Text(
+                "Sort by category",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Color(0xFF3a3a3b),
+                    fontWeight: FontWeight.w300),
+              ),
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Chinese",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Color(0xFF3a3a3b),
+                      fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
+          ),
+              Container(
+                padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Ice-cream",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF3a3a3b),
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
