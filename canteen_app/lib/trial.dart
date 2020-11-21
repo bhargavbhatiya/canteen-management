@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:canteen_app/widgets/PopularFoodsWidget.dart';
+import 'package:canteen_app/global.dart';
 
 class ShowCategory extends StatefulWidget {
   ShowCategory();
@@ -9,21 +9,25 @@ class ShowCategory extends StatefulWidget {
   VideoScreenState createState() => VideoScreenState();
 }
 
+int _defaultValue = 1;
+
 class VideoScreenState extends State<ShowCategory> {
   VideoScreenState();
 
-  int _n;
-
-  void add() {
-    setState(() {
-      _n++;
-    });
+  void _increment() {
+    if (_defaultValue <= 50) {
+      setState(() {
+        _defaultValue++;
+      });
+    }
   }
 
-  void minus() {
-    setState(() {
-      _n--;
-    });
+  void _decrement() {
+    if (_defaultValue > 1) {
+      setState(() {
+        _defaultValue--;
+      });
+    }
   }
 
   Widget build(BuildContext context) {
@@ -114,7 +118,9 @@ class VideoScreenState extends State<ShowCategory> {
                                                 hintText: "Quantity"),
                                             controller: q,
                                           ),*/
+
                                     Container(
+                                      padding: EdgeInsets.all(10),
                                       child: new Center(
                                         child: new Row(
                                           mainAxisAlignment:
@@ -124,7 +130,7 @@ class VideoScreenState extends State<ShowCategory> {
                                               width: 35,
                                               height: 35,
                                               child: new FloatingActionButton(
-                                                onPressed: add,
+                                                onPressed: _decrement,
                                                 child: new Icon(
                                                   Icons.remove,
                                                   color: Colors.black,
@@ -132,14 +138,14 @@ class VideoScreenState extends State<ShowCategory> {
                                                 backgroundColor: Colors.white,
                                               ),
                                             ),
-                                            new Text(_n.toString(),
+                                            new Text('$_defaultValue',
                                                 style: new TextStyle(
                                                     fontSize: 18.0)),
                                             Container(
                                               width: 35,
                                               height: 35,
                                               child: new FloatingActionButton(
-                                                onPressed: minus,
+                                                onPressed: _increment,
                                                 child: new Icon(Icons.add,
                                                     color: Colors.black),
                                                 backgroundColor: Colors.white,
@@ -149,6 +155,20 @@ class VideoScreenState extends State<ShowCategory> {
                                         ),
                                       ),
                                     ),
+                                    new FlatButton(
+                                        color: Colors.blueAccent,
+                                        child: new Text(
+                                          "Add",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        onPressed: () {
+                                          addToCart(
+                                            document['name'],
+                                            document['price'],
+                                          );
+                                          _defaultValue = 1;
+                                          Navigator.pop(context);
+                                        }),
                                   ],
                                 ),
                               ),
@@ -190,4 +210,14 @@ class VideoScreenState extends State<ShowCategory> {
           }),
     );
   }
+}
+
+void addToCart(var name, var price) {
+  print(_defaultValue);
+  quantity.add(int.parse(_defaultValue.toString()));
+  items.add(name);
+  print(price);
+  prices.add(double.parse(price.toString()));
+  print(quantity.length);
+  print(items.length);
 }

@@ -109,7 +109,7 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
               Icons.arrow_back_ios,
               color: Color(0xFF3a3737),
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context),
           ),
           title: Center(
             child: Text(
