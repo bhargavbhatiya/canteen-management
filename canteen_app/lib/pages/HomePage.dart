@@ -24,7 +24,8 @@ class _HomePageState extends State<HomePage> {
             "What would you like to eat?",
             style: TextStyle(
                 color: Color(0xFF3a3737),
-/// ui
+
+                /// ui
                 fontSize: 16,
                 fontWeight: FontWeight.w500),
           ),
@@ -38,22 +39,22 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.push(context, ScaleRoute(page: SignInPage()));
                 })
-=======
-              ),
-              onPressed: () {
-                Navigator.push(context, ScaleRoute(page: SignInPage()));
-              })
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SearchWidget(),
-            SizedBox(height: 5),
-            PopularFoodsWidget(),
-            SizedBox(height: 5),
-            BestFoodWidget(),
-/// main
+// =======
+            //         ),
+            //         onPressed: () {
+            //           Navigator.push(context, ScaleRoute(page: SignInPage()));
+            //         })
+            //   ],
+            // ),
+            // body: SingleChildScrollView(
+            //   child: Column(
+            //     children: <Widget>[
+            //       SearchWidget(),
+            //       SizedBox(height: 5),
+            //       PopularFoodsWidget(),
+            //       SizedBox(height: 5),
+            //       BestFoodWidget(),
+            /// main
           ],
         ),
         body: SingleChildScrollView(

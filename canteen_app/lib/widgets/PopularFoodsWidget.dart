@@ -38,13 +38,13 @@ class PopularFoodTiles extends StatelessWidget {
   String price;
   String image;
 
-  PopularFoodTiles(
-      {Key key,
-      @required this.name,
-      @required this.imageUrl,
-      @required this.description,
-      @required this.price,})
-      : super(key: key);
+  PopularFoodTiles({
+    Key key,
+    @required this.name,
+    @required this.imageUrl,
+    @required this.description,
+    @required this.price,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,38 +120,39 @@ class PopularFoodTiles extends StatelessWidget {
                       RaisedButton(
                           child: Text("add to cart"),
                           onPressed: () {
-///<<<<<<< ui
+// /<<<<<<< ui
                             showDialog(
-                              context: context,
+                                context: context,
                                 child: new Dialog(
                                   shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(
+                                      borderRadius: BorderRadius.all(
                                           Radius.circular(10.0))),
-                              child: new Column(
-                                children: <Widget>[
-                                  Text("Name: " + name),
-                                  Text("Price: " + price),
-                                  new TextField(
-                                    decoration: new InputDecoration(
-                                        hintText: "Quantity"),
-                                    controller: q,
+                                  child: new Column(
+                                    children: <Widget>[
+                                      Text("Name: " + name),
+                                      Text("Price: " + price),
+                                      new TextField(
+                                        decoration: new InputDecoration(
+                                            hintText: "Quantity"),
+                                        controller: q,
+                                      ),
+                                      new FlatButton(
+                                          child: new Text("Add"),
+                                          onPressed: () {
+                                            addToCart(name, price);
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HomePage()),
+                                            );
+                                          }),
+                                    ],
                                   ),
-                                  new FlatButton(
-                                      child: new Text("Add"),
-                                      onPressed: () {
-                                        addToCart(name, price);
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => HomePage()),
-                                        );
-                                      }
-                                  ),
-                                ],),));
-=======
-                            addToCart(this.name, this.price);
-///>>>>>>> main
+                                ));
+// =======
+                            // addToCart(this.name, this.price);
+// />>>>>>> main
                           }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -352,40 +353,39 @@ class PopularFoodItems extends StatelessWidget {
   }
 }
 
-///<<<<<<< ui
+//<<<<<<< ui
 
 getItems() async {
-   await Firebase.initializeApp();
-   FirebaseFirestore.instance.collection("items").get().then((querySnapshot) {
-     querySnapshot.docs.forEach((result) {
-       return PopularFoodTiles(
-         name: result.get("name"),
-         imageUrl: result.get("image"),
-         description: result.get("description"),
-         price: result.get("price"),
-       );
-     });
-   });
- }
-   //FirebaseFirestore.instance.collection("items")
-   //.getDocuments()
-   //.then(QuerySnapshot snapshot){
-     //snapshot.documents.forEach((f) => return PopularFoodTiles(
-       //  name: f.name,
-         // imageUrl:
-     //));
-   //};
-  //return PopularFoodTiles(
-    //name: "Noodles",
-    //imageUrl: "",
-  //);
+  await Firebase.initializeApp();
+  FirebaseFirestore.instance.collection("items").get().then((querySnapshot) {
+    querySnapshot.docs.forEach((result) {
+      return PopularFoodTiles(
+        name: result.get("name"),
+        imageUrl: result.get("image"),
+        description: result.get("description"),
+        price: result.get("price"),
+      );
+    });
+  });
+}
+//FirebaseFirestore.instance.collection("items")
+//.getDocuments()
+//.then(QuerySnapshot snapshot){
+//snapshot.documents.forEach((f) => return PopularFoodTiles(
+//  name: f.name,
+// imageUrl:
+//));
+//};
+//return PopularFoodTiles(
+//name: "Noodles",
+//imageUrl: "",
+//);
 //}
 
-
-void addToCart(var name, var price){
+void addToCart(var name, var price) {
   print(q.text);
   quantity.add(int.parse(q.text.toString()));
-=======
+// =======
 //getItems() async {
 //await Firebase.initializeApp();
 //FirebaseFirestore.instance.collection("items")
@@ -402,9 +402,9 @@ void addToCart(var name, var price){
 //);
 //}
 
-void addToCart(var name, var price) {
-  quantity.add(1);
-///>>>>>>> main
+// void addToCart(var name, var price) {
+//   quantity.add(1);
+// />>>>>>> main
   items.add(name);
   print(price);
   prices.add(int.parse(price.toString()));

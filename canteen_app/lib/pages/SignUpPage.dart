@@ -2,7 +2,6 @@ import 'package:canteen_app/animation/ScaleRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'SignInPage.dart';
 import 'package:canteen_app/global.dart';
 
@@ -10,29 +9,6 @@ TextEditingController name = new TextEditingController();
 TextEditingController email = new TextEditingController();
 TextEditingController passwd = new TextEditingController();
 void createRecord(context) async {
-    print("fuc called");
-    currentUser = name.text;
-    FirebaseFirestore.instance
-        .collection('users')
-        .add({
-      "email": email.text,
-      "orders": [],
-      "name": name.text,
-    })
-        .then((result) =>
-    {
-      uid = result.id,
-      print("success"),
-      Dialog(child: Text("Updated sucessfully"),),
-    })
-        .catchError((err) => Dialog(child: Text("error" +err)));
-  }
-
-
-/// ui
-=======
-void createRecord() async {
-  await Firebase.initializeApp();
   print("fuc called");
   currentUser = name.text;
   FirebaseFirestore.instance
@@ -45,14 +21,37 @@ void createRecord() async {
       .then((result) => {
             uid = result.id,
             print("success"),
-            print(uid),
             Dialog(
               child: Text("Updated sucessfully"),
             ),
           })
-      .catchError((err) => Dialog(child: Text(err)));
+      .catchError((err) => Dialog(child: Text("error" + err)));
 }
-/// main
+
+// ui
+// =======
+// void createRecord() async {
+//   await Firebase.initializeApp();
+//   print("fuc called");
+//   currentUser = name.text;
+//   FirebaseFirestore.instance
+//       .collection('users')
+//       .add({
+//         "email": email.text,
+//         "orders": [],
+//         "name": name.text,
+//       })
+//       .then((result) => {
+//             uid = result.id,
+//             print("success"),
+//             print(uid),
+//             Dialog(
+//               child: Text("Updated sucessfully"),
+//             ),
+//           })
+//       .catchError((err) => Dialog(child: Text(err)));
+// }
+//main
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -61,7 +60,7 @@ class SignUpPage extends StatelessWidget {
     double defaultFontSize = 14;
     double defaultIconSize = 17;
 
-//// ui
+// ui
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -79,24 +78,24 @@ class SignUpPage extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: Icon(Icons.close),
                     ),
-=======
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
-        width: double.infinity,
-        height: double.infinity,
-        color: Colors.white70,
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.close),
-/// main
+// =======
+                    // return Scaffold(
+                    //   resizeToAvoidBottomInset: false,
+                    //   body: Container(
+                    //     padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+                    //     width: double.infinity,
+                    //     height: double.infinity,
+                    //     color: Colors.white70,
+                    //     child: Column(
+                    //       children: <Widget>[
+                    //         Flexible(
+                    //           flex: 1,
+                    //           child: InkWell(
+                    //             child: Container(
+                    //               child: Align(
+                    //                 alignment: Alignment.topLeft,
+                    //                 child: Icon(Icons.close),
+//main
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -232,7 +231,8 @@ class SignUpPage extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, ScaleRoute(page: SignInPage()));
+                          Navigator.push(
+                              context, ScaleRoute(page: SignInPage()));
                         },
                         child: Container(
                           child: Text(
@@ -295,13 +295,11 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-///<<<<<<< ui
-          onPressed: () => {
-             createRecord(context)
-          }),
-=======
-          onPressed: () => {createRecord()}),
-///>>>>>>> main
+// /<<<<<<< ui
+          onPressed: () => {createRecord(context)}),
+// =======
+      // onPressed: () => {createRecord()}),
+// />>>>>>> main
     );
   }
 }
