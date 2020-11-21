@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 var currentUser = " ";
 var items = new List();
 var quantity = new List<int>();
-var prices = new List<int>();
+var prices = new List<double>();
 var uid;
-int total = calculateTotal();
+double total = calculateTotal();
 
-int calculateTotal() {
-  int total = 0;
+double calculateTotal() {
+  double total = 0;
   for (var i = 0; i < items.length; i++) {
     total += quantity[i] * prices[i];
   }

@@ -33,7 +33,13 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
-        print(index);
+        if (_selectedIndex == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FoodOrderPage()),
+          );
+        }
+//        navigateToScreens(index);
       });
     }
 

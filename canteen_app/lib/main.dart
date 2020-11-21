@@ -11,5 +11,5 @@ import 'package:canteen_app/pages/SignUpPage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(HomePage());
+  runApp(SignUpPage());
 }

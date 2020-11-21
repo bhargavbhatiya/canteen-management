@@ -2,8 +2,54 @@ import 'package:canteen_app/animation/ScaleRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import 'SignUpPage.dart';
+import 'package:canteen_app/global.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:canteen_app/pages/HomePage.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+Future<String> signInWithGoogle() async {
+
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+  final AuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+
+  final UserCredential authResult = await _auth.signInWithCredential(credential);
+  final User user = authResult.user;
+
+  if (user != null) {
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final User cUser = _auth.currentUser;
+    assert(user.uid == cUser.uid);
+
+    print('signInWithGoogle succeeded: $user');
+    currentUser = user.displayName;
+    FirebaseFirestore.instance
+        .collection('users')
+        .add({
+      "email": user.email,
+      "orders": [],
+      "name": user.displayName,
+    })
+        .then((result) => {
+      uid = result.id,
+      print("success"),
+    })
+        .catchError((err) => Dialog(child: Text("error" + err)));
+    return '$user';
+  }
+
+  return null;
+}
 
 class SignInPage extends StatefulWidget {
   @override
@@ -70,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         filled: true,
                         prefixIcon: Icon(
-                          Icons.phone,
+                          Icons.person,
                           color: Color(0xFF666666),
                           size: defaultIconSize,
                         ),
@@ -79,7 +125,7 @@ class _SignInPageState extends State<SignInPage> {
                             color: Color(0xFF666666),
                             fontFamily: defaultFontFamily,
                             fontSize: defaultFontSize),
-                        hintText: "Phone Number",
+                        hintText: "E-mail",
                       ),
                     ),
                     SizedBox(
@@ -98,11 +144,6 @@ class _SignInPageState extends State<SignInPage> {
                         filled: true,
                         prefixIcon: Icon(
                           Icons.lock_outline,
-                          color: Color(0xFF666666),
-                          size: defaultIconSize,
-                        ),
-                        suffixIcon: Icon(
-                          Icons.remove_red_eye,
                           color: Color(0xFF666666),
                           size: defaultIconSize,
                         ),
@@ -136,9 +177,14 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     SignInButtonWidget(),
                     SizedBox(
+                      height: 20,
+                    ),
+                    Text("or"),
+                    SizedBox(height: 20,),
+                    SignInButtonWidget2(),
+                    SizedBox(
                       height: 2,
                     ),
-                    FacebookGoogleLogin()
                   ],
                 ),
               ),
@@ -227,7 +273,63 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-          onPressed: () => {}),
+          onPressed: () => {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => HomePage()),
+    ),
+    }
+    )
+    );
+  }
+  }
+
+class SignInButtonWidget2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Color(0xFFfbab66),
+          ),
+          BoxShadow(
+            color: Color(0xFFf7418c),
+          ),
+        ],
+        gradient: new LinearGradient(
+            colors: [Color(0xFFf7418c), Color(0xFFfbab66)],
+            begin: const FractionalOffset(0.2, 0.2),
+            end: const FractionalOffset(1.0, 1.0),
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp),
+      ),
+      child: MaterialButton(
+          highlightColor: Colors.transparent,
+          splashColor: Color(0xFFf7418c),
+          //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+            child: Text(
+              "SIGN IN WITH GOOGLE",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontFamily: "WorkSansBold"),
+            ),
+          ),
+          onPressed: () => {
+            signInWithGoogle().then((result) {
+              if (result != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              }}),
+          }),
     );
   }
 }
