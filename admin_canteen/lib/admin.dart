@@ -111,45 +111,60 @@ class _AdminState extends State<Admin> {
                     ),
                   ),*/
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(22.0),
                     child: Card(
-                      child: ListTile(
-                          title: FlatButton.icon(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => ShowCategory()));
-                              },
-                              icon: Icon(Icons.category),
-                              label: Text("Categories")),
-                          subtitle: Text(
-                            '0',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: active, fontSize: 60.0),
-                          )),
-                    ),
+                        child: GestureDetector(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.category,
+                              size: 50,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Categories",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ShowCategory()));
+                      },
+                    )),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: Card(
-                      child: ListTile(
-                        title: FlatButton.icon(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => ShowProduct()));
-                            },
-                            icon: Icon(Icons.emoji_food_beverage),
-                            label: Text("Producs")),
-                        subtitle: Text(
-                          '0',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: active, fontSize: 60.0),
+                        child: GestureDetector(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.emoji_food_beverage,
+                              size: 50,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Products",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ShowProduct()));
+                      },
+                    )),
                   ),
                   /*Padding(
                     padding: const EdgeInsets.all(22.0),
@@ -169,7 +184,6 @@ class _AdminState extends State<Admin> {
                   Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: Card(
-
                         child: GestureDetector(
                       child: Container(
                         child: Column(
@@ -194,19 +208,6 @@ class _AdminState extends State<Admin> {
                             MaterialPageRoute(builder: (_) => ShowOrders()));
                       },
                     )),
-
-                      child: ListTile(
-                          title: FlatButton.icon(
-                              onPressed: null,
-                              icon: Icon(Icons.shopping_cart),
-                              label: Text("Orders")),
-                          subtitle: Text(
-                            '0',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: active, fontSize: 60.0),
-                          )),
-                    ),
-
                   ),
                   Padding(
                     padding: const EdgeInsets.all(22.0),
