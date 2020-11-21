@@ -407,7 +407,7 @@ void addToCart(var name, var price) {
 // />>>>>>> main
   items.add(name);
   print(price);
-  prices.add(int.parse(price.toString()));
+  prices.add(double.parse(price.toString()));
   print(quantity.length);
   print(items.length);
 }
