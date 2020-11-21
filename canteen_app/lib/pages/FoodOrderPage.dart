@@ -32,7 +32,7 @@ class SignInButtonWidget extends StatelessWidget {
           //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
             child: Text(
               "PLACE ORDER",
               style: TextStyle(
@@ -41,9 +41,7 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-          onPressed: () => {
-            placeOrder()
-          }),
+          onPressed: () => {placeOrder()}),
     );
   }
 }
@@ -57,6 +55,7 @@ void placeOrder() async {
   FirebaseFirestore.instance
       .collection('orders')
       .add({
+/// ui
     "amount": total,
     "items": items,
     "user": currentUser,
@@ -64,22 +63,30 @@ void placeOrder() async {
     "payment": payment,
     "orderid": orders + 1,
   })
+=======
+        "amount": 100,
+        "items": items,
+        "user": currentUser,
+        "quantity": quantity,
+        "payment": payment,
+        "orderid": orders + 1,
+      })
+/// main
       .then((result) => {
-    print("success"),
-    Dialog(child: Text("Ordered sucessfully"),),
-    updateUser()
-  })
+            print(result),
+            Dialog(
+              child: Text("Ordered sucessfully"),
+            ),
+            updateUser()
+          })
       .catchError((err) => Dialog(child: Text(err)));
 }
 
-void updateUser(){
-  FirebaseFirestore.instance.collection("users")
-      .document(uid)
-      .updateData({
+void updateUser() {
+  FirebaseFirestore.instance.collection("users").document(uid).updateData({
     "orders": [1]
   });
 }
-
 
 class FoodOrderPage extends StatefulWidget {
   @override
@@ -118,6 +125,7 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
               CartIconWithBadge(),
             ],
           ),
+/// ui
           body: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(15),
@@ -206,6 +214,62 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
                         ),
                       ],
                     ),
+=======
+          brightness: Brightness.light,
+          actions: <Widget>[
+            CartIconWithBadge(),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    "Your Food Cart",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF3a3a3b),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CartItem(
+                    productName: "Grilled Salmon",
+                    productPrice: "\$96.00",
+                    productImage: "ic_popular_food_1",
+                    productCartQuantity: "2"),
+                SizedBox(
+                  height: 10,
+                ),
+                CartItem(
+                    productName: "Meat vegetable",
+                    productPrice: "\$65.08",
+                    productImage: "ic_popular_food_4",
+                    productCartQuantity: "5"),
+                SizedBox(
+                  height: 20,
+                ),
+                TotalCalculationWidget(),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    "Payment Method",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF3a3a3b),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.left,
+/// main
                   ),
                 ),
               ),
@@ -420,45 +484,6 @@ class TotalCalculationWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class PromoCodeWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.only(left: 3, right: 3),
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: Color(0xFFfae3e2).withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(0, 1),
-          ),
-        ]),
-        child: TextFormField(
-          decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFe6e1e1), width: 1.0),
-              ),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFe6e1e1), width: 1.0),
-                  borderRadius: BorderRadius.circular(7)),
-              fillColor: Colors.white,
-              hintText: 'Add Your Promo Code',
-              filled: true,
-              suffixIcon: IconButton(
-                  icon: Icon(
-                    Icons.local_offer,
-                    color: Color(0xFFfd2c2c),
-                  ),
-                  onPressed: () {
-                    debugPrint('222');
-                  })),
         ),
       ),
     );

@@ -29,6 +29,30 @@ void createRecord(context) async {
   }
 
 
+/// ui
+=======
+void createRecord() async {
+  await Firebase.initializeApp();
+  print("fuc called");
+  currentUser = name.text;
+  FirebaseFirestore.instance
+      .collection('users')
+      .add({
+        "email": email.text,
+        "orders": [],
+        "name": name.text,
+      })
+      .then((result) => {
+            uid = result.id,
+            print("success"),
+            print(uid),
+            Dialog(
+              child: Text("Updated sucessfully"),
+            ),
+          })
+      .catchError((err) => Dialog(child: Text(err)));
+}
+/// main
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -37,6 +61,7 @@ class SignUpPage extends StatelessWidget {
     double defaultFontSize = 14;
     double defaultIconSize = 17;
 
+//// ui
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -54,6 +79,24 @@ class SignUpPage extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: Icon(Icons.close),
                     ),
+=======
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              flex: 1,
+              child: InkWell(
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Icon(Icons.close),
+/// main
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -252,9 +295,13 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
+///<<<<<<< ui
           onPressed: () => {
              createRecord(context)
           }),
+=======
+          onPressed: () => {createRecord()}),
+///>>>>>>> main
     );
   }
 }

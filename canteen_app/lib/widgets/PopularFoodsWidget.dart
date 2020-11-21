@@ -15,7 +15,7 @@ class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 265,
+      height: 310,
       width: double.infinity,
       child: Column(
         children: <Widget>[
@@ -73,7 +73,7 @@ class PopularFoodTiles extends StatelessWidget {
                 ),
                 child: Container(
                   width: 170,
-                  height: 210,
+                  height: 250,
                   child: Column(
                     children: <Widget>[
                       Stack(
@@ -120,6 +120,7 @@ class PopularFoodTiles extends StatelessWidget {
                       RaisedButton(
                           child: Text("add to cart"),
                           onPressed: () {
+///<<<<<<< ui
                             showDialog(
                               context: context,
                                 child: new Dialog(
@@ -148,6 +149,9 @@ class PopularFoodTiles extends StatelessWidget {
                                       }
                                   ),
                                 ],),));
+=======
+                            addToCart(this.name, this.price);
+///>>>>>>> main
                           }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -348,6 +352,7 @@ class PopularFoodItems extends StatelessWidget {
   }
 }
 
+///<<<<<<< ui
 
 getItems() async {
    await Firebase.initializeApp();
@@ -380,6 +385,26 @@ getItems() async {
 void addToCart(var name, var price){
   print(q.text);
   quantity.add(int.parse(q.text.toString()));
+=======
+//getItems() async {
+//await Firebase.initializeApp();
+//FirebaseFirestore.instance.collection("items")
+//.getDocuments()
+//.then(QuerySnapshot snapshot){
+//snapshot.documents.forEach((f) => return PopularFoodTiles(
+//  name: f.name,
+// imageUrl:
+//));
+//};
+//return PopularFoodTiles(
+//name: "Noodles",
+//imageUrl: "",
+//);
+//}
+
+void addToCart(var name, var price) {
+  quantity.add(1);
+///>>>>>>> main
   items.add(name);
   print(price);
   prices.add(int.parse(price.toString()));

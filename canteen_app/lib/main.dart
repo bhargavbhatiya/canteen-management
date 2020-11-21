@@ -1,3 +1,7 @@
+// ui
+=======
+import 'package:canteen_app/pages/HomePage.dart';
+// main
 import 'package:canteen_app/pages/SignUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:canteen_app/trial.dart';
