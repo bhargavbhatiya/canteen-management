@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:canteen_app/pages/FoodDetailsPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:canteen_app/pages/HomePage.dart';
 
 class PopularFoodsWidget extends StatefulWidget {
   @override
@@ -28,22 +29,21 @@ class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
   }
 }
 
+TextEditingController q = new TextEditingController(text: "1");
+
 class PopularFoodTiles extends StatelessWidget {
   String name;
   String imageUrl;
-  String rating;
-  String numberOfRating;
+  String description;
   String price;
-  String slug;
+  String image;
 
   PopularFoodTiles(
       {Key key,
       @required this.name,
       @required this.imageUrl,
-      @required this.rating,
-      @required this.numberOfRating,
-      @required this.price,
-      @required this.slug})
+      @required this.description,
+      @required this.price,})
       : super(key: key);
 
   @override
@@ -109,8 +109,7 @@ class PopularFoodTiles extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Center(
                                 child: Image.asset(
-                              'assets/images/popular_foods/' +
-                                  imageUrl +
+                              'assets/images/popular_foods/ic_popular_food_1' +
                                   ".png",
                               width: 130,
                               height: 140,
@@ -120,10 +119,36 @@ class PopularFoodTiles extends StatelessWidget {
                       ),
                       RaisedButton(
                           child: Text("add to cart"),
-                          onPressed: (){
-                            addToCart(this.name, this.price);
-                          }
-                      ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                                child: new Dialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.all(
+                                          Radius.circular(10.0))),
+                              child: new Column(
+                                children: <Widget>[
+                                  Text("Name: " + name),
+                                  Text("Price: " + price),
+                                  new TextField(
+                                    decoration: new InputDecoration(
+                                        hintText: "Quantity"),
+                                    controller: q,
+                                  ),
+                                  new FlatButton(
+                                      child: new Text("Add"),
+                                      onPressed: () {
+                                        addToCart(name, price);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => HomePage()),
+                                        );
+                                      }
+                                  ),
+                                ],),));
+                          }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -170,7 +195,7 @@ class PopularFoodTiles extends StatelessWidget {
                               Container(
                                 alignment: Alignment.topLeft,
                                 padding: EdgeInsets.only(left: 5, top: 5),
-                                child: Text(rating,
+                                child: Text("rating",
                                     style: TextStyle(
                                         color: Color(0xFF6e6e71),
                                         fontSize: 10,
@@ -211,7 +236,7 @@ class PopularFoodTiles extends StatelessWidget {
                               Container(
                                 alignment: Alignment.topLeft,
                                 padding: EdgeInsets.only(left: 5, top: 5),
-                                child: Text("($numberOfRating)",
+                                child: Text("numberOfRating",
                                     style: TextStyle(
                                         color: Color(0xFF6e6e71),
                                         fontSize: 10,
@@ -276,74 +301,67 @@ class PopularFoodItems extends StatelessWidget {
         PopularFoodTiles(
             name: "Fried Egg",
             imageUrl: "ic_popular_food_1",
-            rating: '4.9',
-            numberOfRating: '200',
-            price: '15.06',
-            slug: "fried_egg"),
+            price: '15',
+            description: "fried_egg"),
         PopularFoodTiles(
             name: "Mixed Vegetable",
             imageUrl: "ic_popular_food_3",
-            rating: "4.9",
-            numberOfRating: "100",
-            price: "17.03",
-            slug: ""),
+            price: "17",
+            description: ""),
         PopularFoodTiles(
             name: "Salad With Chicken",
             imageUrl: "ic_popular_food_4",
-            rating: "4.0",
-            numberOfRating: "50",
-            price: "11.00",
-            slug: ""),
+            price: "11",
+            description: ""),
         PopularFoodTiles(
             name: "Mixed Salad",
             imageUrl: "ic_popular_food_5",
-            rating: "4.00",
-            numberOfRating: "100",
-            price: "11.10",
-            slug: ""),
+            price: "11",
+            description: ""),
         PopularFoodTiles(
             name: "Red meat,Salad",
             imageUrl: "ic_popular_food_2",
-            rating: "4.6",
-            numberOfRating: "150",
-            price: "12.00",
-            slug: ""),
+            price: "12",
+            description: ""),
         PopularFoodTiles(
             name: "Mixed Salad",
             imageUrl: "ic_popular_food_5",
-            rating: "4.00",
-            numberOfRating: "100",
-            price: "11.10",
-            slug: ""),
+            price: "11",
+            description: ""),
         PopularFoodTiles(
             name: "Potato,Meat fry",
             imageUrl: "ic_popular_food_6",
-            rating: "4.2",
-            numberOfRating: "70",
-            price: "23.0",
-            slug: ""),
+            price: "23",
+            description: ""),
         PopularFoodTiles(
             name: "Fried Egg",
             imageUrl: "ic_popular_food_1",
-            rating: '4.9',
-            numberOfRating: '200',
-            price: '15.06',
-            slug: "fried_egg"),
+            price: '12',
+            description: "fried_egg"),
         PopularFoodTiles(
             name: "Red meat,Salad",
             imageUrl: "ic_popular_food_2",
-            rating: "4.6",
-            numberOfRating: "150",
-            price: "12.00",
-            slug: ""),
+            price: "12",
+            description: ""),
       ],
     );
   }
 }
 
 
- //getItems() async {
-   //await Firebase.initializeApp();
+getItems() async {
+   await Firebase.initializeApp();
+   FirebaseFirestore.instance.collection("items").get().then((querySnapshot) {
+     querySnapshot.docs.forEach((result) {
+       return PopularFoodTiles(
+         name: result.get("name"),
+         imageUrl: result.get("image"),
+         description: result.get("description"),
+         price: result.get("price"),
+       );
+     });
+   });
+ }
    //FirebaseFirestore.instance.collection("items")
    //.getDocuments()
    //.then(QuerySnapshot snapshot){
@@ -360,9 +378,11 @@ class PopularFoodItems extends StatelessWidget {
 
 
 void addToCart(var name, var price){
-  quantity.add(1);
+  print(q.text);
+  quantity.add(int.parse(q.text.toString()));
   items.add(name);
-  prices.add(price);
+  print(price);
+  prices.add(int.parse(price.toString()));
   print(quantity.length);
   print(items.length);
 }

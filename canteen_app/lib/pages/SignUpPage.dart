@@ -1,4 +1,3 @@
-
 import 'package:canteen_app/animation/ScaleRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,27 +8,28 @@ import 'package:canteen_app/global.dart';
 
 TextEditingController name = new TextEditingController();
 TextEditingController email = new TextEditingController();
+TextEditingController passwd = new TextEditingController();
+void createRecord(context) async {
+    print("fuc called");
+    currentUser = name.text;
+    FirebaseFirestore.instance
+        .collection('users')
+        .add({
+      "email": email.text,
+      "orders": [],
+      "name": name.text,
+    })
+        .then((result) =>
+    {
+      uid = result.id,
+      print("success"),
+      Dialog(child: Text("Updated sucessfully"),),
+    })
+        .catchError((err) => Dialog(child: Text("error" +err)));
+  }
 
-void createRecord() async{
-  await Firebase.initializeApp();
-  print("fuc called");
-  currentUser = name.text;
-  FirebaseFirestore.instance
-      .collection('users')
-      .add({
-    "email": email.text,
-    "orders": [],
-    "name": name.text,
-  })
-      .then((result) => {
-        uid = result.id,
-    print("success"),
-    print(uid),
-    Dialog(child: Text("Updated sucessfully"),),
-  })
-      .catchError((err) => Dialog(child: Text(err)));
 
-}
+
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,231 +37,178 @@ class SignUpPage extends StatelessWidget {
     double defaultFontSize = 14;
     double defaultIconSize = 17;
 
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
-        width: double.infinity,
-        height: double.infinity,
-        color: Colors.white70,
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(Icons.close),
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.white70,
+          child: Column(
+            children: <Widget>[
+              Flexible(
+                flex: 1,
+                child: InkWell(
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Icon(Icons.close),
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                 ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
               ),
-            ),
-            Flexible(
-              flex: 15,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: 230,
-                    height: 100,
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "assets/images/menus/ic_food_express.png",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: TextField(
-                          controller: name,
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Color(0xFFF2F3F5),
-                            hintStyle: TextStyle(
-                              color: Color(0xFF666666),
-                              fontFamily: defaultFontFamily,
-                              fontSize: defaultFontSize,
-                            ),
-                            hintText: "Name",
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: TextField(
-                          controller: email,
-                          showCursor: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Color(0xFFF2F3F5),
-                            hintStyle: TextStyle(
-                              color: Color(0xFF666666),
-                              fontFamily: defaultFontFamily,
-                              fontSize: defaultFontSize,
-                            ),
-                            hintText: "Email",
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextField(
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      prefixIcon: Icon(
-                        Icons.phone,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize),
-                      hintText: "Phone Number",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextField(
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      prefixIcon: Icon(
-                        Icons.code,
-                        color: Color(0xFF666666),
-                        size: defaultIconSize,
-                      ),
-                      fillColor: Color(0xFFF2F3F5),
-                      hintStyle: TextStyle(
-                        color: Color(0xFF666666),
-                        fontFamily: defaultFontFamily,
-                        fontSize: defaultFontSize,
-                      ),
-                      hintText: "Invitation Code",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                      width: double.infinity,
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.info_outline,
-                            color: Color(0xFF666666),
-                            size: defaultIconSize,
-                          ),
-                          Text(
-                            " Leave empty if you don't have Invitation Code",
-                            style: TextStyle(
-                              color: Color(0xFF666666),
-                              fontFamily: defaultFontFamily,
-                              fontSize: defaultFontSize,
-                              fontStyle: FontStyle.normal,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      )),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SignInButtonWidget(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FacebookGoogleLogin()
-                ],
-              ),
-            ),
-            Flexible(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              Flexible(
+                flex: 15,
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      child: Text(
-                        "Already have an account? ",
-                        style: TextStyle(
-                          color: Color(0xFF666666),
-                          fontFamily: defaultFontFamily,
-                          fontSize: defaultFontSize,
-                          fontStyle: FontStyle.normal,
-                        ),
+                      width: 230,
+                      height: 100,
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        "assets/images/menus/ic_food_express.png",
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context, ScaleRoute(page: SignInPage()));
-                      },
-                      child: Container(
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextField(
+                      controller: name,
+                      showCursor: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Color(0xFF666666),
+                          size: defaultIconSize,
+                        ),
+                        fillColor: Color(0xFFF2F3F5),
+                        hintStyle: TextStyle(
+                            color: Color(0xFF666666),
+                            fontFamily: defaultFontFamily,
+                            fontSize: defaultFontSize),
+                        hintText: "Name",
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextField(
+                      controller: email,
+                      showCursor: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Color(0xFF666666),
+                          size: defaultIconSize,
+                        ),
+                        fillColor: Color(0xFFF2F3F5),
+                        hintStyle: TextStyle(
+                            color: Color(0xFF666666),
+                            fontFamily: defaultFontFamily,
+                            fontSize: defaultFontSize),
+                        hintText: "email",
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextField(
+                      controller: passwd,
+                      showCursor: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderSide: BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Color(0xFF666666),
+                          size: defaultIconSize,
+                        ),
+                        fillColor: Color(0xFFF2F3F5),
+                        hintStyle: TextStyle(
+                            color: Color(0xFF666666),
+                            fontFamily: defaultFontFamily,
+                            fontSize: defaultFontSize),
+                        hintText: "Password",
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    SignInButtonWidget(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FacebookGoogleLogin()
+                  ],
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
                         child: Text(
-                          "Sign In",
+                          "Already have an account? ",
                           style: TextStyle(
-                            color: Color(0xFFf7418c),
+                            color: Color(0xFF666666),
                             fontFamily: defaultFontFamily,
                             fontSize: defaultFontSize,
                             fontStyle: FontStyle.normal,
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context, ScaleRoute(page: SignInPage()));
+                        },
+                        child: Container(
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                              color: Color(0xFFf7418c),
+                              fontFamily: defaultFontFamily,
+                              fontSize: defaultFontSize,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -306,7 +253,7 @@ class SignInButtonWidget extends StatelessWidget {
             ),
           ),
           onPressed: () => {
-             createRecord()
+             createRecord(context)
           }),
     );
   }
