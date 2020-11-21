@@ -27,13 +27,13 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
             style: TextStyle(color: Color(0xFF2c2b2b)),
           ),
         ),
-        BottomNavigationBarItem(
+        /*BottomNavigationBarItem(
           icon: Icon(Icons.near_me),
           title: Text(
             'Near By',
             style: TextStyle(color: Color(0xFF2c2b2b)),
           ),
-        ),
+        ),*/
         BottomNavigationBarItem(
           icon: Icon(Icons.card_giftcard),
           title: Text(

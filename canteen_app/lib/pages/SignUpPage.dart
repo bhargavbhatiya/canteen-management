@@ -27,27 +27,25 @@ void createRecord(context) async {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => HomePage()),
-             ),
+            ),
           })
       .catchError((err) => Dialog(child: Text("error" + err)));
 }
 
 void _register(context) async {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseUser useraa = (await
-  _auth.createUserWithEmailAndPassword(
+  final FirebaseUser useraa = (await _auth.createUserWithEmailAndPassword(
     email: email.text.trim(),
     password: passwd.text.trim(),
-  )
-  ).user;
+  ))
+      .user;
   createRecord(context);
   if (useraa != null) {
     print(useraa.toString());
   } else {
     print("error");
   }
-  }
-
+}
 
 // ui
 // =======
@@ -83,7 +81,9 @@ class SignUpPage extends StatelessWidget {
 
 // ui
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           padding: EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
           width: double.infinity,
@@ -224,10 +224,10 @@ class SignUpPage extends StatelessWidget {
                       height: 15,
                     ),
                     SignInButtonWidget(),
-                    SizedBox(
+                    /*SizedBox(
                       height: 10,
-                    ),
-                    FacebookGoogleLogin()
+                    ),*/
+                    //FacebookGoogleLogin()
                   ],
                 ),
               ),
@@ -253,7 +253,10 @@ class SignUpPage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           Navigator.push(
-                              context, ScaleRoute(page: SignInPage()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignInPage()),
+                          );
                         },
                         child: Container(
                           child: Text(

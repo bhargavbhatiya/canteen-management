@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               SearchWidget(),
-              TopMenus(),
+              //TopMenus(),
               PopularFoodsWidget(),
               BestFoodWidget(),
             ],

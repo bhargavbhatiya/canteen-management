@@ -238,7 +238,7 @@ class PopularFoodTiles extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Container(
+                              /*Container(
                                 alignment: Alignment.topLeft,
                                 padding: EdgeInsets.only(left: 5, top: 5),
                                 child: Text("numberOfRating",
@@ -246,7 +246,7 @@ class PopularFoodTiles extends StatelessWidget {
                                         color: Color(0xFF6e6e71),
                                         fontSize: 10,
                                         fontWeight: FontWeight.w400)),
-                              ),
+                              ),*/
                             ],
                           ),
                           Container(
