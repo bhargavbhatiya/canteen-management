@@ -1,3 +1,6 @@
+import 'package:canteen_app/pages/FoodOrderPage.dart';
+import 'package:canteen_app/pages/SignInPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -10,10 +13,27 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 0;
+    if (_selectedIndex == 1) {
+      Navigator.of(context).push(
+        CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (context) => FoodOrderPage(),
+        ),
+      );
+    }
+    if (_selectedIndex == 2) {
+      Navigator.of(context).push(
+        CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (context) => SignInPage(),
+        ),
+      );
+    }
+
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
-//        navigateToScreens(index);
+        print(index);
       });
     }
 
@@ -27,13 +47,6 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
             style: TextStyle(color: Color(0xFF2c2b2b)),
           ),
         ),
-        /*BottomNavigationBarItem(
-          icon: Icon(Icons.near_me),
-          title: Text(
-            'Near By',
-            style: TextStyle(color: Color(0xFF2c2b2b)),
-          ),
-        ),*/
         BottomNavigationBarItem(
           icon: Icon(Icons.card_giftcard),
           title: Text(

@@ -3,7 +3,6 @@ import 'package:canteen_app/widgets/BestFoodWidget.dart';
 import 'package:canteen_app/widgets/BottomNavBarWidget.dart';
 import 'package:canteen_app/widgets/PopularFoodsWidget.dart';
 import 'package:canteen_app/widgets/SearchWidget.dart';
-import 'package:canteen_app/widgets/TopMenus.dart';
 import 'package:flutter/material.dart';
 import 'SignInPage.dart';
 
@@ -16,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFFFAFAFA),
@@ -39,29 +39,12 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.push(context, ScaleRoute(page: SignInPage()));
                 })
-// =======
-            //         ),
-            //         onPressed: () {
-            //           Navigator.push(context, ScaleRoute(page: SignInPage()));
-            //         })
-            //   ],
-            // ),
-            // body: SingleChildScrollView(
-            //   child: Column(
-            //     children: <Widget>[
-            //       SearchWidget(),
-            //       SizedBox(height: 5),
-            //       PopularFoodsWidget(),
-            //       SizedBox(height: 5),
-            //       BestFoodWidget(),
-            /// main
           ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               SearchWidget(),
-              //TopMenus(),
               PopularFoodsWidget(),
               BestFoodWidget(),
             ],
