@@ -5,6 +5,7 @@ import 'package:admin_canteen/add_product.dart';
 import 'package:admin_canteen/db/category.dart';
 import 'package:admin_canteen/show_category.dart';
 import 'package:admin_canteen/show_product.dart';
+import 'package:admin_canteen/show_orders.dart';
 
 enum Page { dashboard, manage }
 
@@ -174,7 +175,7 @@ class _AdminState extends State<Admin> {
                       ),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => ShowProduct()));
+                            MaterialPageRoute(builder: (_) => ShowOrders()));
                       },
                     )),
                   ),
