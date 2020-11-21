@@ -6,10 +6,53 @@ import 'SignInPage.dart';
 import 'package:canteen_app/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:canteen_app/pages/HomePage.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 TextEditingController name = new TextEditingController();
 TextEditingController email = new TextEditingController();
 TextEditingController passwd = new TextEditingController();
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+Future<String> signInWithGoogle() async {
+
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+
+  final AuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+
+  final UserCredential authResult = await _auth.signInWithCredential(credential);
+  final User user = authResult.user;
+
+  if (user != null) {
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final User cUser = _auth.currentUser;
+    assert(user.uid == cUser.uid);
+
+    print('signInWithGoogle succeeded: $user');
+    currentUser = user.displayName;
+    FirebaseFirestore.instance
+        .collection('users')
+        .add({
+      "email": user.email,
+      "orders": [],
+      "name": user.displayName,
+    })
+        .then((result) => {
+      uid = result.id,
+      print("success"),
+    })
+        .catchError((err) => Dialog(child: Text("error" + err)));
+    return '$user';
+  }
+
+  return null;
+}
+
 void createRecord(context) async {
   print("fuc called");
   currentUser = name.text;
@@ -320,7 +363,13 @@ class SignInButtonWidget extends StatelessWidget {
             ),
           ),
 // /<<<<<<< ui
-          onPressed: () => {createRecord(context)}),
+          onPressed: () => {signInWithGoogle().then((result) {
+    if (result != null) {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => HomePage()),
+    );
+          }}),}),
 // =======
       // onPressed: () => {createRecord()}),
 // />>>>>>> main
