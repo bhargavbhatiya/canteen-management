@@ -7,6 +7,7 @@ import 'package:canteen_app/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:canteen_app/pages/HomePage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 TextEditingController name = new TextEditingController();
 TextEditingController email = new TextEditingController();
 TextEditingController passwd = new TextEditingController();
@@ -14,16 +15,17 @@ TextEditingController passwd = new TextEditingController();
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 Future<String> signInWithGoogle() async {
-
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+  final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
 
   final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
 
-  final UserCredential authResult = await _auth.signInWithCredential(credential);
+  final UserCredential authResult =
+      await _auth.signInWithCredential(credential);
   final User user = authResult.user;
 
   if (user != null) {
@@ -38,14 +40,14 @@ Future<String> signInWithGoogle() async {
     FirebaseFirestore.instance
         .collection('users')
         .add({
-      "email": user.email,
-      "orders": [],
-      "name": user.displayName,
-    })
+          "email": user.email,
+          "orders": [],
+          "name": user.displayName,
+        })
         .then((result) => {
-      uid = result.id,
-      print("success"),
-    })
+              uid = result.id,
+              print("success"),
+            })
         .catchError((err) => Dialog(child: Text("error" + err)));
     return '$user';
   }
@@ -329,6 +331,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 }
+
 class SignInButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -357,7 +360,7 @@ class SignInButtonWidget extends StatelessWidget {
           //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
             child: Text(
               "SIGN UP",
               style: TextStyle(
@@ -403,7 +406,7 @@ class SignInButtonWidget2 extends StatelessWidget {
           //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
             child: Text(
               "SIGN UP WITH GOOGLE",
               style: TextStyle(
@@ -413,21 +416,22 @@ class SignInButtonWidget2 extends StatelessWidget {
             ),
           ),
 // /<<<<<<< ui
-          onPressed: () => {signInWithGoogle().then((result) {
-    if (result != null) {
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => HomePage()),
-    );
-          }}),}),
+          onPressed: () => {
+                signInWithGoogle().then((result) {
+                  if (result != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  }
+                }),
+              }),
 // =======
       // onPressed: () => {createRecord()}),
 // />>>>>>> main
     );
   }
 }
-
-
 
 class FacebookGoogleLogin extends StatelessWidget {
   @override

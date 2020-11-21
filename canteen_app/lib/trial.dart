@@ -11,6 +11,21 @@ class ShowCategory extends StatefulWidget {
 
 class VideoScreenState extends State<ShowCategory> {
   VideoScreenState();
+
+  int _n;
+
+  void add() {
+    setState(() {
+      _n++;
+    });
+  }
+
+  void minus() {
+    setState(() {
+      _n--;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Container(
       height: 270,
@@ -63,30 +78,82 @@ class VideoScreenState extends State<ShowCategory> {
                         child: Text("add to cart"),
                         onPressed: () {
                           showDialog(
-                              context: context,
-                              child: new Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
+                            context: context,
+                            child: new Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Container(
+                                height: 300,
                                 child: new Column(
                                   children: <Widget>[
-                                    Text("Name: " + document['name']),
-                                    Text("Price: " +
-                                        document['price'].toString()),
-                                    new TextField(
-                                      decoration: new InputDecoration(
-                                          hintText: "Quantity"),
-                                      controller: q,
+                                    Padding(padding: EdgeInsets.all(30)),
+                                    Text(
+                                      "Name: " + document['name'].toString(),
+                                      style: TextStyle(fontSize: 20),
                                     ),
-                                    new FlatButton(
-                                        child: new Text("Add"),
-                                        onPressed: () {
-                                          addToCart(document['name'],
-                                              document['price']);
-                                        }),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Price: " + document['price'].toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Quantity:",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    /*new TextField(
+                                            decoration: new InputDecoration(
+                                                hintText: "Quantity"),
+                                            controller: q,
+                                          ),*/
+                                    Container(
+                                      child: new Center(
+                                        child: new Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 35,
+                                              height: 35,
+                                              child: new FloatingActionButton(
+                                                onPressed: add,
+                                                child: new Icon(
+                                                  Icons.remove,
+                                                  color: Colors.black,
+                                                ),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ),
+                                            new Text(_n.toString(),
+                                                style: new TextStyle(
+                                                    fontSize: 18.0)),
+                                            Container(
+                                              width: 35,
+                                              height: 35,
+                                              child: new FloatingActionButton(
+                                                onPressed: minus,
+                                                child: new Icon(Icons.add,
+                                                    color: Colors.black),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              ));
+                              ),
+                            ),
+                          );
                         }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
