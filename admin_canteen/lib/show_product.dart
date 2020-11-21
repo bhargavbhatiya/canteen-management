@@ -187,23 +187,19 @@ class VideoScreenState extends State<ShowProduct> {
                   /*TextField(
                     controller: _catController,
                     decoration: InputDecoration(hintText: 'category'),
-                  ),*/
+                  ),
                   TextFormField(
                     controller: _availController,
                     decoration: InputDecoration(hintText: 'Y/N'),
-                  ),
+                  ),*/
                 ],
               ),
             ),
             actions: [
               FlatButton(
                 onPressed: () {
-                  _updateProducts(
-                      _id,
-                      this._nameController.text,
-                      this._descController.text,
-                      this._availController.text,
-                      this._priceController.text);
+                  _updateProducts(_id, this._nameController.text,
+                      this._descController.text, this._priceController.text);
                   submitAction(context);
                 },
                 child: Text('Submit'),
@@ -217,13 +213,11 @@ class VideoScreenState extends State<ShowProduct> {
         });
   }
 
-  void _updateProducts(
-      String id, String _name, String _desc, String _avail, String _price) {
+  void _updateProducts(String id, String _name, String _desc, String _price) {
     try {
       FirebaseFirestore.instance.collection('products').doc(id).update({
         'name': _name,
         'description': _desc,
-        'available': _avail,
         'price': int.parse(_price),
       });
     } catch (e) {
