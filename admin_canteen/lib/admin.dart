@@ -5,6 +5,7 @@ import 'package:admin_canteen/add_product.dart';
 import 'package:admin_canteen/db/category.dart';
 import 'package:admin_canteen/show_category.dart';
 import 'package:admin_canteen/show_product.dart';
+import 'package:admin_canteen/show_orders.dart';
 
 enum Page { dashboard, manage }
 
@@ -94,8 +95,23 @@ class _AdminState extends State<Admin> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
                 children: <Widget>[
-                  Padding(
+                  /*Padding(
                     padding: const EdgeInsets.all(18.0),
+                    child: Card(
+                      child: ListTile(
+                          title: FlatButton.icon(
+                              onPressed: null,
+                              icon: Icon(Icons.people_outline),
+                              label: Text("Users")),
+                          subtitle: Text(
+                            '7',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: active, fontSize: 60.0),
+                          )),
+                    ),
+                  ),*/
+                  Padding(
+                    padding: const EdgeInsets.all(22.0),
                     child: Card(
                         child: GestureDetector(
                       child: Container(
@@ -123,7 +139,7 @@ class _AdminState extends State<Admin> {
                     )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(22.0),
                     child: Card(
                         child: GestureDetector(
                       child: Container(
@@ -138,7 +154,7 @@ class _AdminState extends State<Admin> {
                               height: 20,
                             ),
                             Text(
-                              "Producs",
+                              "Products",
                               style: TextStyle(fontSize: 20),
                             ),
                           ],
@@ -150,8 +166,23 @@ class _AdminState extends State<Admin> {
                       },
                     )),
                   ),
+                  /*Padding(
+                    padding: const EdgeInsets.all(22.0),
+                    child: Card(
+                      child: ListTile(
+                          title: FlatButton.icon(
+                              onPressed: null,
+                              icon: Icon(Icons.tag_faces),
+                              label: Text("Sold")),
+                          subtitle: Text(
+                            '13',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: active, fontSize: 60.0),
+                          )),
+                    ),
+                  ),*/
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(22.0),
                     child: Card(
                         child: GestureDetector(
                       child: Container(
@@ -174,37 +205,24 @@ class _AdminState extends State<Admin> {
                       ),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => ShowProduct()));
+                            MaterialPageRoute(builder: (_) => ShowOrders()));
                       },
                     )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(22.0),
                     child: Card(
-                        child: GestureDetector(
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.close,
-                              size: 50,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "Return",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => ShowProduct()));
-                      },
-                    )),
+                      child: ListTile(
+                          title: FlatButton.icon(
+                              onPressed: null,
+                              icon: Icon(Icons.close),
+                              label: Text("Return")),
+                          subtitle: Text(
+                            '0',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: active, fontSize: 60.0),
+                          )),
+                    ),
                   ),
                 ],
               ),
