@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'SignInPage.dart';
 import 'package:canteen_app/global.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:canteen_app/pages/HomePage.dart';
 
 TextEditingController name = new TextEditingController();
 TextEditingController email = new TextEditingController();
@@ -21,12 +23,31 @@ void createRecord(context) async {
       .then((result) => {
             uid = result.id,
             print("success"),
-            Dialog(
-              child: Text("Updated sucessfully"),
-            ),
+            _register(context),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+             ),
           })
       .catchError((err) => Dialog(child: Text("error" + err)));
 }
+
+void _register(context) async {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseUser useraa = (await
+  _auth.createUserWithEmailAndPassword(
+    email: email.text.trim(),
+    password: passwd.text.trim(),
+  )
+  ).user;
+  createRecord(context);
+  if (useraa != null) {
+    print(useraa.toString());
+  } else {
+    print("error");
+  }
+  }
+
 
 // ui
 // =======
