@@ -83,7 +83,7 @@ class VideoScreenState extends State<ShowProduct> {
                             children: [
                               RaisedButton(
                                 onPressed: () {
-                                  openDialogueBox(context);
+                                  openDialogueBox(context, document['id']);
                                 },
                                 child: Icon(
                                   Icons.edit,
@@ -115,6 +115,7 @@ class VideoScreenState extends State<ShowProduct> {
                                           actions: [
                                             FlatButton(
                                               onPressed: () {
+                                                _deleteProduct(document['id']);
                                                 submitAction(context);
                                                 Navigator.pop(context);
                                               },
@@ -149,24 +150,8 @@ class VideoScreenState extends State<ShowProduct> {
     );
   }
 
-  void _changeAvailability(String id, String available) {
-    try {
-      String ava;
-      if (available == 'Y') {
-        ava = 'N';
-      } else {
-        ava = 'Y';
-      }
-      FirebaseFirestore.instance
-          .collection('products')
-          .doc(id)
-          .update({'available': ava});
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  openDialogueBox(BuildContext context) {
+  openDialogueBox(BuildContext context, String _id) {
+    print(_id);
     return showDialog(
         context: context,
         builder: (context) {
@@ -176,11 +161,11 @@ class VideoScreenState extends State<ShowProduct> {
               height: 240,
               child: Column(
                 children: [
-                  TextField(
+                  TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(hintText: 'Name'),
                   ),
-                  TextField(
+                  TextFormField(
                     controller: _descController,
                     decoration: InputDecoration(hintText: 'Description'),
                   ),
@@ -188,14 +173,13 @@ class VideoScreenState extends State<ShowProduct> {
                     controller: _priceController,
                     decoration: InputDecoration(hintText: 'price'),
                   ),
-                  TextField(
+                  /*TextField(
                     controller: _catController,
                     decoration: InputDecoration(hintText: 'category'),
-                  ),
-                  TextField(
+                  ),*/
+                  TextFormField(
                     controller: _availController,
-                    decoration:
-                        InputDecoration(hintText: 'Y/N for availability'),
+                    decoration: InputDecoration(hintText: 'Y/N'),
                   ),
                 ],
               ),
@@ -203,20 +187,45 @@ class VideoScreenState extends State<ShowProduct> {
             actions: [
               FlatButton(
                 onPressed: () {
+                  _updateProducts(
+                      _id,
+                      this._nameController.text,
+                      this._descController.text,
+                      this._availController.text,
+                      this._priceController.text);
                   submitAction(context);
-                  Navigator.pop(context);
                 },
                 child: Text('Submit'),
               ),
               FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+                onPressed: () {},
                 child: Text('Cancel'),
               )
             ],
           );
         });
+  }
+
+  void _updateProducts(
+      String id, String _name, String _desc, String _avail, String _price) {
+    try {
+      FirebaseFirestore.instance.collection('products').doc(id).update({
+        'name': _name,
+        'description': _desc,
+        'available': _avail,
+        'price': int.parse(_price),
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void _deleteProduct(String id) {
+    try {
+      FirebaseFirestore.instance.collection('products').doc(id).delete();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   fetchUserInfo() async {
@@ -234,10 +243,4 @@ class VideoScreenState extends State<ShowProduct> {
     _priceController.clear();
     _availController.clear();
   }
-}
-
-updateData(String name, String desc, String cat, int price, String avail,
-    String userID) async {
-  // await DatabaseManager().updateUserList(name, desc, cat, price,avail,userID);
-  // fetchDatabaseList();
 }
