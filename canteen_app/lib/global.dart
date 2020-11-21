@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 var currentUser = " ";
-var items = ["pizza", "paasta", "burger"];
-var quantity = [1, 2, 3];
-var prices = [12, 45, 67];
+var items = new List();
+var quantity = new List<int>();
+var prices = new List<int>();
 var uid;
 int total = calculateTotal();
 
