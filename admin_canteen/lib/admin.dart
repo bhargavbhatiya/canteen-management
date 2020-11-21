@@ -214,13 +214,17 @@ class _AdminState extends State<Admin> {
                     child: Card(
                       child: ListTile(
                           title: FlatButton.icon(
-                              onPressed: null,
-                              icon: Icon(Icons.close),
-                              label: Text("Return")),
+                            onPressed: null,
+                            icon: Icon(Icons.close),
+                            label: Text(
+                              "Return",
+                              style: TextStyle(color: active, fontSize: 20.0),
+                            ),
+                          ),
                           subtitle: Text(
-                            '0',
+                            "Return",
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: active, fontSize: 60.0),
+                            style: TextStyle(color: active, fontSize: 20.0),
                           )),
                     ),
                   ),

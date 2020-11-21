@@ -1,9 +1,9 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:canteen_app/widgets/PopularFoodsWidget.dart';
+import 'package:canteen_app/global.dart';
 
 class ShowCategory extends StatefulWidget {
   ShowCategory();
@@ -11,8 +11,27 @@ class ShowCategory extends StatefulWidget {
   VideoScreenState createState() => VideoScreenState();
 }
 
+int _defaultValue = 1;
+
 class VideoScreenState extends State<ShowCategory> {
   VideoScreenState();
+
+  void _increment() {
+    if (_defaultValue <= 50) {
+      setState(() {
+        _defaultValue++;
+      });
+    }
+  }
+
+  void _decrement() {
+    if (_defaultValue > 1) {
+      setState(() {
+        _defaultValue--;
+      });
+    }
+  }
+
   Widget build(BuildContext context) {
     return Container(
       height: 270,
@@ -67,30 +86,98 @@ class VideoScreenState extends State<ShowCategory> {
                         child: Text("add to cart"),
                         onPressed: () {
                           showDialog(
-                              context: context,
-                              child: new Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
+                            context: context,
+                            child: new Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Container(
+                                height: 300,
                                 child: new Column(
                                   children: <Widget>[
-                                    Text("Name: " + document['name']),
-                                    Text("Price: " +
-                                        document['price'].toString()),
-                                    new TextField(
-                                      decoration: new InputDecoration(
-                                          hintText: "Quantity"),
-                                      controller: q,
+                                    Padding(padding: EdgeInsets.all(30)),
+                                    Text(
+                                      "Name: " + document['name'].toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Price: " + document['price'].toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Quantity:",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    /*new TextField(
+                                            decoration: new InputDecoration(
+                                                hintText: "Quantity"),
+                                            controller: q,
+                                          ),*/
+
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: new Center(
+                                        child: new Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 35,
+                                              height: 35,
+                                              child: new FloatingActionButton(
+                                                onPressed: _decrement,
+                                                child: new Icon(
+                                                  Icons.remove,
+                                                  color: Colors.black,
+                                                ),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ),
+                                            new Text('$_defaultValue',
+                                                style: new TextStyle(
+                                                    fontSize: 18.0)),
+                                            Container(
+                                              width: 35,
+                                              height: 35,
+                                              child: new FloatingActionButton(
+                                                onPressed: _increment,
+                                                child: new Icon(Icons.add,
+                                                    color: Colors.black),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                     new FlatButton(
-                                        child: new Text("Add"),
+                                        color: Colors.blueAccent,
+                                        child: new Text(
+                                          "Add",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                         onPressed: () {
-                                          addToCart(document['name'],
-                                              document['price']);
+                                          addToCart(
+                                            document['name'],
+                                            document['price'],
+                                          );
+                                          _defaultValue = 1;
+                                          Navigator.pop(context);
                                         }),
                                   ],
                                 ),
-                              ));
+                              ),
+                            ),
+                          );
                         }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,4 +214,14 @@ class VideoScreenState extends State<ShowCategory> {
           }),
     );
   }
+}
+
+void addToCart(var name, var price) {
+  print(_defaultValue);
+  quantity.add(int.parse(_defaultValue.toString()));
+  items.add(name);
+  print(price);
+  prices.add(double.parse(price.toString()));
+  print(quantity.length);
+  print(items.length);
 }

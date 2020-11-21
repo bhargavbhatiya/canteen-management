@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xFF3a3a3b),
                     fontWeight: FontWeight.w300),
               ),
-              //TopMenus(),
               ShowCategory(),
               Text(
                 "Sort by category",
