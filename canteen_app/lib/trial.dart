@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,18 +28,20 @@ class VideoScreenState extends State<ShowCategory> {
             return ListView(
               scrollDirection: Axis.horizontal,
               children: snapshot.data.docs.map((document) {
+                if (document['available'] == 'N') {
+                  return Center(
+                    child: Container(
+                      height: 0,
+                      width: 0,
+                    ),
+                  );
+                }
                 return Column(
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.only(
                           left: 10, right: 5, top: 5, bottom: 5),
-                      decoration: BoxDecoration(boxShadow: [
-                        /* BoxShadow(
-                color: Color(0xFFfae3e2),
-                blurRadius: 15.0,
-                offset: Offset(0, 0.75),
-              ),*/
-                      ]),
+                      decoration: BoxDecoration(boxShadow: []),
                       child: Card(
                         color: Colors.white,
                         elevation: 0,
