@@ -5,6 +5,7 @@ import 'package:admin_canteen/add_product.dart';
 import 'package:admin_canteen/db/category.dart';
 import 'package:admin_canteen/show_category.dart';
 import 'package:admin_canteen/show_product.dart';
+import 'package:admin_canteen/show_orders.dart';
 
 enum Page { dashboard, manage }
 
@@ -168,6 +169,32 @@ class _AdminState extends State<Admin> {
                   Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: Card(
+
+                        child: GestureDetector(
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.shopping_cart,
+                              size: 50,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Orders",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ShowOrders()));
+                      },
+                    )),
+
                       child: ListTile(
                           title: FlatButton.icon(
                               onPressed: null,
@@ -179,6 +206,7 @@ class _AdminState extends State<Admin> {
                             style: TextStyle(color: active, fontSize: 60.0),
                           )),
                     ),
+
                   ),
                   Padding(
                     padding: const EdgeInsets.all(22.0),
