@@ -1,3 +1,4 @@
+import 'package:canteen_app/widgets/BottomNavBarWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -100,121 +101,134 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xFFFAFAFA),
-            elevation: 0,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Color(0xFF3a3737),
-              ),
-              onPressed: () => Navigator.of(context).pop(),
+        appBar: AppBar(
+          backgroundColor: Color(0xFFFAFAFA),
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Color(0xFF3a3737),
             ),
-            title: Center(
-              child: Text(
-                "Item Carts",
-                style: TextStyle(
-                    color: Color(0xFF3a3737),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            brightness: Brightness.light,
-            actions: <Widget>[
-              CartIconWithBadge(),
-            ],
+            onPressed: () => Navigator.of(context).pop(),
           ),
+          title: Center(
+            child: Text(
+              "Item Carts",
+              style: TextStyle(
+                  color: Color(0xFF3a3737),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          brightness: Brightness.light,
+          actions: <Widget>[
+            CartIconWithBadge(),
+          ],
+        ),
 
-          /// ui
-          body: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text(
-                      "Your Food Cart",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF3a3a3b),
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.left,
+        /// ui
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    "Your Food Cart",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF3a3a3b),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFFfae3e2).withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 1),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFFfae3e2).withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(0, 1),
+                  ]),
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5.0),
                       ),
-                    ]),
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(5.0),
-                        ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey[400],
                       ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.only(
-                            left: 25, right: 30, top: 10, bottom: 10),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 15,
+                      height: 75,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(
+                          left: 10, right: 10, top: 10, bottom: 10),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(padding: EdgeInsets.all(5)),
+                          Container(
+                            width: 120,
+                            child: Text(
+                              "items",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "items",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xFF3a3a3b),
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.left,
-                                ),
-                                Text(
-                                  "price",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xFF3a3a3b),
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.left,
-                                ),
-                                Text(
-                                  "quantity",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xFF3a3a3b),
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.left,
-                                ),
-                                Text(
-                                  "Amount",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xFF3a3a3b),
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.left,
-                                )
-                              ],
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: 52,
+                            child: Text(
+                              "Price",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
                             ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            width: 52,
+                            child: Text(
+                              "Qty",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Container(
+                            width: 52,
+                            child: Text(
+                              "Amt",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      ),
 // =======
 //           brightness: Brightness.light,
 //           actions: <Widget>[
@@ -270,98 +284,105 @@ class _FoodOrderPageState extends State<FoodOrderPage> {
 //                         color: Color(0xFF3a3a3b),
 //                         fontWeight: FontWeight.w600),
 //                     textAlign: TextAlign.left,
-                        /// main
+                      /// main
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+                      width: double.maxFinite,
+                      height: 300,
+                      child: ListDisplay(),
+                    )),
+                Container(
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFFfae3e2).withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: Offset(0, 1),
+                    ),
+                  ]),
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5.0),
+                      ),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.grey[400],
+                      ),
+                      height: 70,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.only(
+                          left: 25, right: 30, top: 10, bottom: 10),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Total",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color(0xFF3a3a3b),
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.left,
+                              ),
+                              Text(
+                                total.toString(),
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color(0xFF3a3a3b),
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Container(
-                        width: double.maxFinite,
-                        height: 300,
-                        child: ListDisplay(),
-                      )),
-                  Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFFfae3e2).withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(0, 1),
-                      ),
-                    ]),
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(5.0),
-                        ),
-                      ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.only(
-                            left: 25, right: 30, top: 10, bottom: 10),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Total",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xFF3a3a3b),
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.left,
-                                ),
-                                Text(
-                                  total.toString(),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color(0xFF3a3a3b),
-                                      fontWeight: FontWeight.w600),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    "Payment Method",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF3a3a3b),
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.left,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text(
-                      "Payment Method",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF3a3a3b),
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  PaymentMethodWidget(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SignInButtonWidget(),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                PaymentMethodWidget(),
+                SizedBox(
+                  height: 10,
+                ),
+                SignInButtonWidget(),
+              ],
             ),
-          )),
+          ),
+        ),
+        bottomNavigationBar: BottomNavBarWidget(),
+      ),
     );
   }
 }
@@ -424,7 +445,7 @@ class TotalCalculationWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      height: 150,
+      height: 100,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
           color: Color(0xFFfae3e2).withOpacity(0.1),

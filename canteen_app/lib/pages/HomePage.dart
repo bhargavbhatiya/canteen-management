@@ -3,7 +3,6 @@ import 'package:canteen_app/widgets/BestFoodWidget.dart';
 import 'package:canteen_app/widgets/BottomNavBarWidget.dart';
 import 'package:canteen_app/widgets/PopularFoodsWidget.dart';
 import 'package:canteen_app/widgets/SearchWidget.dart';
-import 'package:canteen_app/widgets/TopMenus.dart';
 import 'package:flutter/material.dart';
 import 'SignInPage.dart';
 import 'package:canteen_app/trial.dart';
@@ -17,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFFFAFAFA),
@@ -40,22 +40,6 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.push(context, ScaleRoute(page: SignInPage()));
                 })
-// =======
-            //         ),
-            //         onPressed: () {
-            //           Navigator.push(context, ScaleRoute(page: SignInPage()));
-            //         })
-            //   ],
-            // ),
-            // body: SingleChildScrollView(
-            //   child: Column(
-            //     children: <Widget>[
-            //       SearchWidget(),
-            //       SizedBox(height: 5),
-            //       PopularFoodsWidget(),
-            //       SizedBox(height: 5),
-            //       BestFoodWidget(),
-            /// main
           ],
         ),
         body: SingleChildScrollView(
@@ -80,23 +64,25 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xFF3a3a3b),
                     fontWeight: FontWeight.w300),
               ),
-          Container(
-            padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "Chinese",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Color(0xFF3a3a3b),
-                      fontWeight: FontWeight.w300),
-                ),
-              ],
-            ),
-          ),
               Container(
-                padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Chinese",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF3a3a3b),
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

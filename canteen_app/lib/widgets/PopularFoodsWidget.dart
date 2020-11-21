@@ -11,6 +11,8 @@ class PopularFoodsWidget extends StatefulWidget {
   _PopularFoodsWidgetState createState() => _PopularFoodsWidgetState();
 }
 
+int _n = 1;
+
 class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,14 @@ class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
 }
 
 TextEditingController q = new TextEditingController(text: "1");
+
+void add() {
+  _n++;
+}
+
+void minus() {
+  _n--;
+}
 
 class PopularFoodTiles extends StatelessWidget {
   String name;
@@ -127,27 +137,89 @@ class PopularFoodTiles extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10.0))),
-                                  child: new Column(
-                                    children: <Widget>[
-                                      Text("Name: " + name),
-                                      Text("Price: " + price),
-                                      new TextField(
-                                        decoration: new InputDecoration(
-                                            hintText: "Quantity"),
-                                        controller: q,
-                                      ),
-                                      new FlatButton(
-                                          child: new Text("Add"),
-                                          onPressed: () {
-                                            addToCart(name, price);
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HomePage()),
-                                            );
-                                          }),
-                                    ],
+                                  child: Container(
+                                    height: 300,
+                                    child: new Column(
+                                      children: <Widget>[
+                                        Padding(padding: EdgeInsets.all(30)),
+                                        Text(
+                                          "Name: " + name,
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "Price: " + price,
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "Quantity:",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        /*new TextField(
+                                          decoration: new InputDecoration(
+                                              hintText: "Quantity"),
+                                          controller: q,
+                                        ),*/
+                                        Container(
+                                          child: new Center(
+                                            child: new Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  child:
+                                                      new FloatingActionButton(
+                                                    onPressed: add,
+                                                    child: new Icon(
+                                                      Icons.remove,
+                                                      color: Colors.black,
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                  ),
+                                                ),
+                                                new Text(_n.toString(),
+                                                    style: new TextStyle(
+                                                        fontSize: 18.0)),
+                                                Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  child:
+                                                      new FloatingActionButton(
+                                                    onPressed: minus,
+                                                    child: new Icon(Icons.add,
+                                                        color: Colors.black),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        new FlatButton(
+                                            color: Colors.blueAccent,
+                                            child: new Text(
+                                              "Add",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            onPressed: () {
+                                              addToCart(name, price);
+                                              Navigator.pop(context);
+                                            }),
+                                      ],
+                                    ),
                                   ),
                                 ));
 // =======
@@ -238,15 +310,6 @@ class PopularFoodTiles extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              /*Container(
-                                alignment: Alignment.topLeft,
-                                padding: EdgeInsets.only(left: 5, top: 5),
-                                child: Text("numberOfRating",
-                                    style: TextStyle(
-                                        color: Color(0xFF6e6e71),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400)),
-                              ),*/
                             ],
                           ),
                           Container(
@@ -383,8 +446,8 @@ getItems() async {
 //}
 
 void addToCart(var name, var price) {
-  print(q.text);
-  quantity.add(int.parse(q.text.toString()));
+  print(_n);
+  quantity.add(int.parse(_n.toString()));
 // =======
 //getItems() async {
 //await Firebase.initializeApp();
