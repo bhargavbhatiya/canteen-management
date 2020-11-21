@@ -137,6 +137,17 @@ class VideoScreenState extends State<ShowProduct> {
                                 ),
                                 color: Colors.red,
                               ),
+                              IconButton(
+                                  icon: Icon(Icons.food_bank),
+                                  onPressed: () {
+                                    _updateToY(document['id']);
+                                    submitAction(context);
+                                  }),
+                              IconButton(
+                                  icon: Icon(Icons.food_bank_outlined),
+                                  onPressed: () {
+                                    _updateToN(document['id']);
+                                  })
                             ],
                           ),
                         )
@@ -218,6 +229,18 @@ class VideoScreenState extends State<ShowProduct> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void _updateToY(String id) {
+    FirebaseFirestore.instance.collection('products').doc(id).update({
+      'available': 'Y',
+    });
+  }
+
+  void _updateToN(String id) {
+    FirebaseFirestore.instance.collection('products').doc(id).update({
+      'available': 'N',
+    });
   }
 
   void _deleteProduct(String id) {
