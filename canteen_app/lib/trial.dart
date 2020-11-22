@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:canteen_app/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -171,7 +172,12 @@ class VideoScreenState extends State<ShowCategory> {
                                             document['price'],
                                           );
                                           _defaultValue = 1;
-                                          Navigator.pop(context);
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              fullscreenDialog: true,
+                                              builder: (context) => HomePage(),
+                                            ),
+                                          );
                                         }),
                                   ],
                                 ),

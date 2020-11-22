@@ -12,5 +12,5 @@ import 'package:canteen_app/pages/FoodOrderPage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyAo());
+  runApp(SignUpPage());
 }
