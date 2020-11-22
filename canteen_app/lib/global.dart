@@ -4,7 +4,7 @@ var currentUser = " ";
 var items = new List();
 var quantity = new List<int>();
 var prices = new List<double>();
-var uid;
+var uid = 'Ovj2ey5RS3sc1YaAmyJQ';
 double total = calculateTotal();
 
 double calculateTotal() {
@@ -57,7 +57,7 @@ class ListDisplay extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   padding:
-                      EdgeInsets.only(left: 25, right: 30, top: 10, bottom: 10),
+                      EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -68,7 +68,7 @@ class ListDisplay extends StatelessWidget {
                           Column(
                             children: [
                               Container(
-                                width: 140,
+                                width: 150,
                                 child: Text(
                                   items[index],
                                   style: TextStyle(
@@ -83,7 +83,7 @@ class ListDisplay extends StatelessWidget {
                           Column(
                             children: [
                               Container(
-                                width: 60,
+                                width: 55,
                                 child: Text(
                                   (prices[index]).toString(),
                                   style: TextStyle(
@@ -113,7 +113,7 @@ class ListDisplay extends StatelessWidget {
                           Column(
                             children: [
                               Container(
-                                width: 40,
+                                width: 55,
                                 child: Text(
                                   (prices[index] * quantity[index]).toString(),
                                   style: TextStyle(

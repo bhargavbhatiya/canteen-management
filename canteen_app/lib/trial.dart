@@ -1,7 +1,10 @@
+//import 'dart:html';
+
+import 'package:canteen_app/pages/HomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:canteen_app/widgets/PopularFoodsWidget.dart';
+import 'package:canteen_app/global.dart';
 
 class ShowCategory extends StatefulWidget {
   ShowCategory();
@@ -9,8 +12,31 @@ class ShowCategory extends StatefulWidget {
   VideoScreenState createState() => VideoScreenState();
 }
 
+int _defaultValue = 1;
+TextEditingController val = new TextEditingController(text: "1");
+
 class VideoScreenState extends State<ShowCategory> {
   VideoScreenState();
+
+
+    @override
+    void _increment() {
+      if (_defaultValue <= 50) {
+        setState(() {
+          val.text = (int.parse(val.text.toString()) + 1).toString();
+          _defaultValue++;
+        });
+      }
+    }
+
+  void _decrement() {
+    if (_defaultValue > 1) {
+      setState(() {
+        val.text = (int.parse(val.text.toString())- 1 ).toString();
+        _defaultValue--;
+      });
+    }
+  }
   Widget build(BuildContext context) {
     return Container(
       height: 270,
@@ -26,18 +52,20 @@ class VideoScreenState extends State<ShowCategory> {
             return ListView(
               scrollDirection: Axis.horizontal,
               children: snapshot.data.docs.map((document) {
+                if (document['available'] == 'N') {
+                  return Center(
+                    child: Container(
+                      height: 0,
+                      width: 0,
+                    ),
+                  );
+                }
                 return Column(
                   children: <Widget>[
                     Container(
                       padding: EdgeInsets.only(
                           left: 10, right: 5, top: 5, bottom: 5),
-                      decoration: BoxDecoration(boxShadow: [
-                        /* BoxShadow(
-                color: Color(0xFFfae3e2),
-                blurRadius: 15.0,
-                offset: Offset(0, 0.75),
-              ),*/
-                      ]),
+                      decoration: BoxDecoration(boxShadow: []),
                       child: Card(
                         color: Colors.white,
                         elevation: 0,
@@ -63,30 +91,99 @@ class VideoScreenState extends State<ShowCategory> {
                         child: Text("add to cart"),
                         onPressed: () {
                           showDialog(
-                              context: context,
-                              child: new Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
+                            context: context,
+                            child: new Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Container(
+                                height: 300,
                                 child: new Column(
                                   children: <Widget>[
-                                    Text("Name: " + document['name']),
-                                    Text("Price: " +
-                                        document['price'].toString()),
-                                    new TextField(
-                                      decoration: new InputDecoration(
-                                          hintText: "Quantity"),
-                                      controller: q,
+                                    Padding(padding: EdgeInsets.all(30)),
+                                    Text(
+                                      "Name: " + document['name'].toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Price: " + document['price'].toString(),
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Quantity:",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    /*new TextField(
+                                            decoration: new InputDecoration(
+                                                hintText: "Quantity"),
+                                            controller: q,
+                                          ),*/
+
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: new Center(
+                                        child: new Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 35,
+                                              height: 35,
+                                              child: new FloatingActionButton(
+                                                onPressed: _decrement,
+                                                child: new Icon(
+                                                  Icons.remove,
+                                                  color: Colors.black,
+                                                ),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ),
+                                            Container(width: 20, height: 10 ,child: new TextField(controller: val,)),
+
+                                            Container(
+                                              width: 35,
+                                              height: 35,
+                                              child: new FloatingActionButton(
+                                                onPressed: _increment,
+                                                child: new Icon(Icons.add,
+                                                    color: Colors.black),
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                     new FlatButton(
-                                        child: new Text("Add"),
+                                        color: Colors.blueAccent,
+                                        child: new Text(
+                                          "Add",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                         onPressed: () {
-                                          addToCart(document['name'],
-                                              document['price']);
+                                          addToCart(
+                                            document['name'],
+                                            document['price'],
+                                            context
+                                          );
+
+                                          _defaultValue = 1;
+                                          val.text = "1";
                                         }),
                                   ],
                                 ),
-                              ));
+                              ),
+                            ),
+                          );
                         }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,4 +220,23 @@ class VideoScreenState extends State<ShowCategory> {
           }),
     );
   }
+}
+
+void addToCart(var name, var price, context) {
+  print(_defaultValue);
+  quantity.add(int.parse(_defaultValue.toString()));
+  items.add(name);
+  print(price);
+  prices.add(double.parse(price.toString()));
+  print(quantity.length);
+  print(items.length);
+  reload(context);
+}
+
+void reload(context){
+  print("reload");
+  Navigator.push(
+    context,
+   MaterialPageRoute(builder: (context) => HomePage()),
+  );
 }

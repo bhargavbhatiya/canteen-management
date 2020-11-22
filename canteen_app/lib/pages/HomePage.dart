@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xFF3a3a3b),
                     fontWeight: FontWeight.w300),
               ),
-              //TopMenus(),
               ShowCategory(),
               Text(
                 "Sort by category",
@@ -64,38 +63,39 @@ class _HomePageState extends State<HomePage> {
                     color: Color(0xFF3a3a3b),
                     fontWeight: FontWeight.w300),
               ),
-              Container(
-                padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Chinese",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF3a3a3b),
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Ice-cream",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF3a3a3b),
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   padding:
+              //       EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: <Widget>[
+              //       Text(
+              //         "Chinese",
+              //         style: TextStyle(
+              //             fontSize: 20,
+              //             color: Color(0xFF3a3a3b),
+              //             fontWeight: FontWeight.w300),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Container(
+              //   padding:
+              //       EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: <Widget>[
+              //       Text(
+              //         "Ice-cream",
+              //         style: TextStyle(
+              //             fontSize: 20,
+              //             color: Color(0xFF3a3a3b),
+              //             fontWeight: FontWeight.w300),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              BestFoodWidget(),
             ],
           ),
         ),
