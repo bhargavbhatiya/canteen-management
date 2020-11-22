@@ -13,6 +13,7 @@ class VideoScreenState extends State<ShowCategory> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: StreamBuilder(
           stream:
               FirebaseFirestore.instance.collection('categories').snapshots(),
@@ -24,16 +25,45 @@ class VideoScreenState extends State<ShowCategory> {
               );
             }
 
-            return ListView(
-              children: snapshot.data.docs.map((document) {
-                return Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    height: MediaQuery.of(context).size.height / 6,
-                    child: Text("Categories are: " + document['category']),
+            return Container(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      "Categories",
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+                    ),
                   ),
-                );
-              }).toList(),
+                  Expanded(
+                    // height: MediaQuery.of(context).size.height,
+                    child: ListView(
+                      children: snapshot.data.docs.map((document) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width / 1.2,
+                          // height: MediaQuery.of(context).size.height / 2,
+                          child: Container(
+                            margin: EdgeInsets.all(8),
+                            height: 50,
+                            child: Center(
+                              child: Text(
+                                document['category'],
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
             );
           }),
     );
