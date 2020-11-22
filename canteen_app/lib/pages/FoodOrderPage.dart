@@ -42,7 +42,7 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-          onPressed: () => {placeOrder()}),
+          onPressed: () => {updateUser()}),
     );
   }
 }
@@ -84,11 +84,294 @@ void placeOrder() async {
 }
 
 void updateUser() {
-  FirebaseFirestore.instance.collection("users").document(uid).updateData({
-    "orders": [1]
+  var no;
+  var orders = new List();
+  FirebaseFirestore.instance.collection("ordercount").doc('pztEtXQyaXtfXJWFHI6U').get().then((value){
+    no = value['count'];
+    print("sucess");
+    print(no.runtimeType);
   });
+  print("hello");
+ no += 1;
+ print(no);
+  FirebaseFirestore.instance.collection("ordercount").doc('pztEtXQyaXtfXJWFHI6U').updateData({
+    "count": no.toString()
+  });
+  /*
+  FirebaseFirestore.instance.collection("users").doc(uid).get().then((value){
+    orders = value['orders'];
+    print(orders);
+  });
+  orders[orders.length] = no;
+  print(orders);
+  FirebaseFirestore.instance.collection("users").document('3M073nVDe6zWGtpbgha3').updateData({
+    "orders": orders
+  });*/
+
+
+  }
+
+
+class MyAo extends StatefulWidget {
+  @override
+  _MyAoState createState() => _MyAoState();
 }
 
+class _MyAoState extends State<MyAo> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Color(0xFFfae3e2).withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: Offset(0, 1),
+              ),
+            ]),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 70,),
+                Text(
+                  "Order Status",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
+                  textAlign: TextAlign.left,
+                ),
+                SizedBox(height: 20,),
+                Container(
+                    height: 100,
+                  child: items1(),
+                ),
+                
+                Container(
+                  height: 120,
+                  child: ListViewBuilder(),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: BottomNavBarWidget(),
+      )
+    );
+  }
+}
+
+
+class items1 extends StatefulWidget {
+  @override
+  _items1State createState() => _items1State();
+}
+
+class _items1State extends State<items1> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+          itemCount: quantity.length,
+          itemBuilder: (BuildContext context,int index){
+            return ListTile(
+                leading: Icon(Icons.list),
+                trailing: Text(quantity[index].toString(),
+                  style: TextStyle(
+                      color: Colors.green,fontSize: 15),),
+                title:Text(items[index].toString())
+            );
+          }
+      ),
+    );
+  }
+}
+
+
+class ListViewBuilder extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: 1,
+          itemBuilder: (BuildContext context,int index){
+            if (status == "b"){
+              return Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFfae3e2).withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 1),
+                  ),
+                ]),
+                child: Card(
+                  color: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    height: 70,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(
+                        left: 25, right: 30, top: 10, bottom: 10),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Icon(Icons.cancel, color: Colors.red,),
+                            Text(
+                              "Order Cancelled",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+            if (status == "c"){
+              return Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFfae3e2).withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 1),
+                  ),
+                ]),
+                child: Card(
+                  color: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    height: 70,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(
+                        left: 25, right: 30, top: 10, bottom: 10),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Icon(Icons.fastfood, color: Colors.pinkAccent,),
+                            Text(
+                              "Your Food is ready",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color(0xFF3a3a3b),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+            return Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 100,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: Color(0xFFfae3e2).withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: Offset(0, 1),
+                ),
+              ]),
+              child: Card(
+                color: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
+                  height: 70,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(
+                      left: 25, right: 30, top: 10, bottom: 10),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Icon(Icons.check, color: Colors.lightGreenAccent,),
+                          Text(
+                            "Order Placed and Waiting",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFF3a3a3b),
+                                fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+      ),
+    );
+  }
+}
+String status;
+void getStatus(){
+  FirebaseFirestore.instance.collection("users").document(uid).get().then((value){
+    print(value.data());
+    status = value.data()['status'];
+    print(status);
+  });
+}
 class FoodOrderPage extends StatefulWidget {
   @override
   _FoodOrderPageState createState() => _FoodOrderPageState();
