@@ -1,5 +1,5 @@
-import 'dart:ffi';
-//import 'dart:html';
+// ignore: avoid_web_libraries_in_flutter
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -83,49 +83,53 @@ class VideoScreenState extends State<ShowOrders> {
                           Text('\nStatus not available'),
                         Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: Row(children: [
+                            child: Column(children: [
                               for (int i = 0; i < items.length; i++)
                                 Text(items[i] +
                                     " - " +
                                     document['quantity'][i].toString()),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.payments,
-                                    color: Colors.green,
-                                  ),
-                                  onPressed: () {
-                                    _paymentTrue(document.id);
-                                  }),
-                              IconButton(
-                                  icon: Icon(Icons.payments_outlined),
-                                  color: Colors.red,
-                                  onPressed: () {
-                                    _paymentFalse(document.id);
-                                  }),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.circle,
-                                    color: Colors.black12,
-                                  ),
-                                  onPressed: () {
-                                    _changeStatusToA(document.id);
-                                  }),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.circle,
-                                    color: Colors.red,
-                                  ),
-                                  onPressed: () {
-                                    _changeStatusToB(document.id);
-                                  }),
-                              IconButton(
-                                  icon: Icon(
-                                    Icons.circle,
-                                    color: Colors.green,
-                                  ),
-                                  onPressed: () {
-                                    _changeStatusToC(document.id);
-                                  })
+                              Row(
+                                children: [
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.payments,
+                                        color: Colors.green,
+                                      ),
+                                      onPressed: () {
+                                        _paymentTrue(document.id);
+                                      }),
+                                  IconButton(
+                                      icon: Icon(Icons.payments_outlined),
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        _paymentFalse(document.id);
+                                      }),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.circle,
+                                        color: Colors.black12,
+                                      ),
+                                      onPressed: () {
+                                        _changeStatusToA(document.id);
+                                      }),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.circle,
+                                        color: Colors.red,
+                                      ),
+                                      onPressed: () {
+                                        _changeStatusToB(document.id);
+                                      }),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.circle,
+                                        color: Colors.green,
+                                      ),
+                                      onPressed: () {
+                                        _changeStatusToC(document.id);
+                                      })
+                                ],
+                              ),
                             ])),
                       ])),
                 );
