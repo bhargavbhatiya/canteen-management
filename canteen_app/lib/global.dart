@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 var currentUser = " ";
-var items = new List();
-var quantity = new List<int>();
+var items = ['paasta', 'pizza'];
+var quantity = [2, 4];
 var prices = new List<double>();
-var uid;
+var uid = 'Ovj2ey5RS3sc1YaAmyJQ';
 double total = calculateTotal();
 
 double calculateTotal() {

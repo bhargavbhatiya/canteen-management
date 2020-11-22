@@ -33,14 +33,6 @@ class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
 
 TextEditingController q = new TextEditingController(text: "1");
 
-void add() {
-  _n++;
-}
-
-void minus() {
-  _n--;
-}
-
 class PopularFoodTiles extends StatelessWidget {
   String name;
   String imageUrl;
@@ -56,7 +48,21 @@ class PopularFoodTiles extends StatelessWidget {
     @required this.price,
   }) : super(key: key);
 
+
+
+
   @override
+  void minus() {
+    setState(){
+      _n--;
+    }
+  }
+  void add() {
+    setState(){
+      _n++;
+    }
+  }
+
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
@@ -188,7 +194,8 @@ class PopularFoodTiles extends StatelessWidget {
                                                         Colors.white,
                                                   ),
                                                 ),
-                                                new Text(_n.toString(),
+                                                new Text(
+                                                    _n.toString(),
                                                     style: new TextStyle(
                                                         fontSize: 18.0)),
                                                 Container(
