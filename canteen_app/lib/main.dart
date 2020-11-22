@@ -58,19 +58,12 @@ class _closedState extends State<closed> {
                     ),
                   ),
                   height: 200,
-                  width: 300,
-                  child: Image.asset(
-                    'assets/images/closeddown.jpg',
+                  width: 296,
+                  child: Image.network(
+                    'https://cdn.vox-cdn.com/thumbor/c9bipEBuVa1OnSyZN8HI_Mp2910=/0x0:1500x996/920x613/filters:focal(630x378:870x618):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/66850835/ComingAttractions_Close_6.0.jpg',
                     height: 200,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "The canteen is closed",
-                style: TextStyle(fontSize: 20),
               ),
             ],
           ),
