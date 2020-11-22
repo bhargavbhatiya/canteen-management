@@ -42,27 +42,31 @@ class SignInButtonWidget extends StatelessWidget {
                   fontFamily: "WorkSansBold"),
             ),
           ),
-          onPressed: () => {updateUser()}),
+          onPressed: () => {placeOrder(context)}),
     );
   }
 }
 
 bool payment = false;
 String t = total.toString();
-
-void placeOrder() async {
+final date = new DateTime.now();
+final time = new DateTime.now().millisecondsSinceEpoch;
+String time2 = time.toString();
+void placeOrder(context) async {
   await Firebase.initializeApp();
   print("fuc called");
   FirebaseFirestore.instance
       .collection('orders')
       .add({
         /// ui
-        "amount": total,
+        "amount": double.parse(t),
         "items": items,
         "user": currentUser,
         "quantity": quantity,
         "payment": payment,
-        "orderid": orders + 1,
+        "status": "a",
+        "datetime": date,
+        "orderid": date.toString()
       })
 // =======
 //         "amount": 100,
@@ -75,10 +79,13 @@ void placeOrder() async {
       /// main
       .then((result) => {
             print(result),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyAo()),
+    ),
             Dialog(
               child: Text("Ordered sucessfully"),
             ),
-            updateUser()
           })
       .catchError((err) => Dialog(child: Text(err)));
 }

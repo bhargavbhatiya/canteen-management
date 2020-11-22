@@ -13,26 +13,30 @@ class ShowCategory extends StatefulWidget {
 }
 
 int _defaultValue = 1;
+TextEditingController val = new TextEditingController(text: "1");
 
 class VideoScreenState extends State<ShowCategory> {
   VideoScreenState();
 
-  void _increment() {
-    if (_defaultValue <= 50) {
-      setState(() {
-        _defaultValue++;
-      });
+
+    @override
+    void _increment() {
+      if (_defaultValue <= 50) {
+        setState(() {
+          val.text = (int.parse(val.text.toString()) + 1).toString();
+          _defaultValue++;
+        });
+      }
     }
-  }
 
   void _decrement() {
     if (_defaultValue > 1) {
       setState(() {
+        val.text = (int.parse(val.text.toString())- 1 ).toString();
         _defaultValue--;
       });
     }
   }
-
   Widget build(BuildContext context) {
     return Container(
       height: 270,
@@ -143,9 +147,8 @@ class VideoScreenState extends State<ShowCategory> {
                                                 backgroundColor: Colors.white,
                                               ),
                                             ),
-                                            new Text('$_defaultValue',
-                                                style: new TextStyle(
-                                                    fontSize: 18.0)),
+                                            Container(width: 20, height: 10 ,child: new TextField(controller: val,)),
+
                                             Container(
                                               width: 35,
                                               height: 35,
@@ -170,14 +173,11 @@ class VideoScreenState extends State<ShowCategory> {
                                           addToCart(
                                             document['name'],
                                             document['price'],
+                                            context
                                           );
+
                                           _defaultValue = 1;
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              fullscreenDialog: true,
-                                              builder: (context) => HomePage(),
-                                            ),
-                                          );
+                                          val.text = "1";
                                         }),
                                   ],
                                 ),
@@ -222,7 +222,7 @@ class VideoScreenState extends State<ShowCategory> {
   }
 }
 
-void addToCart(var name, var price) {
+void addToCart(var name, var price, context) {
   print(_defaultValue);
   quantity.add(int.parse(_defaultValue.toString()));
   items.add(name);
@@ -230,4 +230,13 @@ void addToCart(var name, var price) {
   prices.add(double.parse(price.toString()));
   print(quantity.length);
   print(items.length);
+  reload(context);
+}
+
+void reload(context){
+  print("reload");
+  Navigator.push(
+    context,
+   MaterialPageRoute(builder: (context) => HomePage()),
+  );
 }
