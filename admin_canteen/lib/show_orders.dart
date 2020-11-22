@@ -80,7 +80,7 @@ class VideoScreenState extends State<ShowOrders> {
                         else if (document['status'] == 'c')
                           Text('\nFood Ready')
                         else
-                          Text('Status not available'),
+                          Text('\nStatus not available'),
                         Padding(
                             padding: const EdgeInsets.only(left: 15),
                             child: Row(children: [
