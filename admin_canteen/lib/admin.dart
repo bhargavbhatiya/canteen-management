@@ -6,6 +6,7 @@ import 'package:admin_canteen/db/category.dart';
 import 'package:admin_canteen/show_category.dart';
 import 'package:admin_canteen/show_product.dart';
 import 'package:admin_canteen/show_orders.dart';
+import 'package:admin_canteen/show_report.dart';
 
 enum Page { dashboard, manage }
 
@@ -231,7 +232,10 @@ class _AdminState extends State<Admin> {
                           ],
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ShowReport()));
+                      },
                     )),
                   ),
                 ],
