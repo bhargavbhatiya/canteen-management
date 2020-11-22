@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 var currentUser = " ";
-var items = ['paasta', 'pizza'];
-var quantity = [2, 4];
+var items = new List();
+var quantity = new List<int>();
 var prices = new List<double>();
 var uid = 'Ovj2ey5RS3sc1YaAmyJQ';
 double total = calculateTotal();

@@ -1,4 +1,5 @@
 import 'package:canteen_app/pages/FoodOrderPage.dart';
+import 'package:canteen_app/pages/HomePage.dart';
 import 'package:canteen_app/pages/SignInPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,23 +14,6 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 0;
-    if (_selectedIndex == 1) {
-      Navigator.of(context).push(
-        CupertinoPageRoute(
-          fullscreenDialog: true,
-          builder: (context) => FoodOrderPage(),
-        ),
-      );
-    }
-    if (_selectedIndex == 2) {
-      Navigator.of(context).push(
-        CupertinoPageRoute(
-          fullscreenDialog: true,
-          builder: (context) => SignInPage(),
-        ),
-      );
-    }
-
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
@@ -37,6 +21,30 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FoodOrderPage()),
+          );
+        }
+        if (_selectedIndex == 0) {
+          Navigator.of(context).push(
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => HomePage(),
+            ),
+          );
+        }
+        if (_selectedIndex == 1) {
+          Navigator.of(context).push(
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => FoodOrderPage(),
+            ),
+          );
+        }
+        if (_selectedIndex == 2) {
+          Navigator.of(context).push(
+            CupertinoPageRoute(
+              fullscreenDialog: true,
+              builder: (context) => MyAo(),
+            ),
           );
         }
 //        navigateToScreens(index);
@@ -61,9 +69,9 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.user),
+          icon: Icon(FontAwesomeIcons.steamSymbol),
           title: Text(
-            'Account',
+            'Order Status',
             style: TextStyle(color: Color(0xFF2c2b2b)),
           ),
         ),
