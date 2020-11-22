@@ -76,6 +76,7 @@ flutter:
         - asset: assets/fonts/Roboto-Regular.ttf
         - asset: assets/fonts/Roboto-Bold.ttf
         - asset: assets/fonts/Roboto-Light.ttf
+        
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
@@ -118,6 +119,7 @@ flutter:
     - assets/images/bestfood/ic_best_food_8.jpeg
     - assets/images/bestfood/ic_best_food_9.jpeg
     - assets/images/bestfood/ic_best_food_10.jpeg
+    - assets/images/closeddown.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
