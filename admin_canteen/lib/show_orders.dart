@@ -82,7 +82,18 @@ class VideoScreenState extends State<ShowOrders> {
                         else
                           Text('\nStatus not available'),
                         Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Row(children: [
+                            for (int i = 0; i < items.length; i++)
+                              Text(items[i] +
+                                  " - " +
+                                  document['quantity'][i].toString() +
+                                  " "),
+                          ]),
+                        ),
+                        Padding(
                             padding: const EdgeInsets.only(left: 15),
+<<<<<<< HEAD
                             child: Column(children: [
                               for (int i = 0; i < items.length; i++)
                                 Text(items[i] +
@@ -130,6 +141,47 @@ class VideoScreenState extends State<ShowOrders> {
                                       })
                                 ],
                               ),
+=======
+                            child: Row(children: [
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.payments,
+                                    color: Colors.green,
+                                  ),
+                                  onPressed: () {
+                                    _paymentTrue(document.id);
+                                  }),
+                              IconButton(
+                                  icon: Icon(Icons.payments_outlined),
+                                  color: Colors.red,
+                                  onPressed: () {
+                                    _paymentFalse(document.id);
+                                  }),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.circle,
+                                    color: Colors.black12,
+                                  ),
+                                  onPressed: () {
+                                    _changeStatusToA(document.id);
+                                  }),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.circle,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    _changeStatusToB(document.id);
+                                  }),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.circle,
+                                    color: Colors.green,
+                                  ),
+                                  onPressed: () {
+                                    _changeStatusToC(document.id);
+                                  })
+>>>>>>> f43c3ddacbc4d4a5aae7ae62491917f761f44419
                             ])),
                       ])),
                 );
