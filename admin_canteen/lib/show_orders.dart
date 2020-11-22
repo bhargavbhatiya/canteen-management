@@ -15,6 +15,7 @@ String amount;
 String orderid;
 String payment;
 String user;
+String datetime;
 List<String> items = new List<String>();
 List<int> quantity = new List<int>();
 
@@ -43,6 +44,10 @@ class VideoScreenState extends State<ShowOrders> {
                 user = document['user'];
                 items = List.from(document['items']);
 
+                datetime =
+                    DateTime.parse(document['datetime'].toDate().toString())
+                        .toString();
+
                 // quantity = List.from(document['quantity']);
                 return Center(
                   child: Container(
@@ -64,14 +69,16 @@ class VideoScreenState extends State<ShowOrders> {
                               orderid +
                               "\nPayment : " +
                               payment +
-                              "\nItems - Quantity "),
+                              "\nDate-Time : " +
+                              datetime +
+                              "\nItems - Quantity"),
                         ),
                         if (document['status'] == 'a')
-                          Text('Ordered and waiting for confitmation.\n')
+                          Text('\nOrdered and waiting for confitmation.\n')
                         else if (document['status'] == 'b')
-                          Text('Ordered rejected!')
+                          Text('\nOrdered rejected!')
                         else if (document['status'] == 'c')
-                          Text('Food Ready')
+                          Text('\nFood Ready')
                         else
                           Text('Status not available'),
                         Padding(
@@ -98,7 +105,7 @@ class VideoScreenState extends State<ShowOrders> {
                               IconButton(
                                   icon: Icon(
                                     Icons.circle,
-                                    color: Colors.yellow,
+                                    color: Colors.black12,
                                   ),
                                   onPressed: () {
                                     _changeStatusToA(document.id);
