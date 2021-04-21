@@ -14,11 +14,7 @@ void main() async {
   var state = "true";
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseFirestore.instance
-      .collection("startstop")
-      .document("ZR6zBFDKChGnlf0WRe7W")
-      .get()
-      .then((value) {
+  FirebaseFirestore.instance.collection("startstop").document("ZR6zBFDKChGnlf0WRe7W").get().then((value) {
     state = value.data()['value'].toString();
     print(state);
     if (state == "true") {

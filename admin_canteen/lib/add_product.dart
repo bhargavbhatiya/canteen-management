@@ -8,6 +8,7 @@ import 'package:admin_canteen/db/category.dart';
 
 class AddProduct extends StatefulWidget {
   @override
+  // ignore: override_on_non_overriding_member
   _AddProductState createState() => _AddProductState();
 }
 
@@ -21,8 +22,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController quatityController = TextEditingController();
   final priceController = TextEditingController();
   List<DocumentSnapshot> categories = <DocumentSnapshot>[];
-  List<DropdownMenuItem<String>> categoriesDropDown =
-      <DropdownMenuItem<String>>[];
+  List<DropdownMenuItem<String>> categoriesDropDown = <DropdownMenuItem<String>>[];
   List<DropdownMenuItem<String>> brandsDropDown = <DropdownMenuItem<String>>[];
   String _currentCategory;
   Color white = Colors.white;
@@ -43,11 +43,8 @@ class _AddProductState extends State<AddProduct> {
     List<DropdownMenuItem<String>> items = new List();
     for (int i = 0; i < categories.length; i++) {
       setState(() {
-        items.insert(
-            0,
-            DropdownMenuItem(
-                child: Text(categories[i].data()['category']),
-                value: categories[i].data()['category']));
+        items.insert(0,
+            DropdownMenuItem(child: Text(categories[i].data()['category']), value: categories[i].data()['category']));
       });
     }
     return items;
@@ -81,13 +78,9 @@ class _AddProductState extends State<AddProduct> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: OutlineButton(
-                                borderSide: BorderSide(
-                                    color: grey.withOpacity(0.5), width: 2.5),
+                                borderSide: BorderSide(color: grey.withOpacity(0.5), width: 2.5),
                                 onPressed: () {
-                                  _selectImage(
-                                      ImagePicker.pickImage(
-                                          source: ImageSource.gallery),
-                                      1);
+                                  _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 1);
                                 },
                                 child: _displayChild1()),
                           ),
@@ -96,13 +89,9 @@ class _AddProductState extends State<AddProduct> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: OutlineButton(
-                                borderSide: BorderSide(
-                                    color: grey.withOpacity(0.5), width: 2.5),
+                                borderSide: BorderSide(color: grey.withOpacity(0.5), width: 2.5),
                                 onPressed: () {
-                                  _selectImage(
-                                      ImagePicker.pickImage(
-                                          source: ImageSource.gallery),
-                                      2);
+                                  _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 2);
                                 },
                                 child: _displayChild2()),
                           ),
@@ -111,13 +100,9 @@ class _AddProductState extends State<AddProduct> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: OutlineButton(
-                              borderSide: BorderSide(
-                                  color: grey.withOpacity(0.5), width: 2.5),
+                              borderSide: BorderSide(color: grey.withOpacity(0.5), width: 2.5),
                               onPressed: () {
-                                _selectImage(
-                                    ImagePicker.pickImage(
-                                        source: ImageSource.gallery),
-                                    3);
+                                _selectImage(ImagePicker.pickImage(source: ImageSource.gallery), 3);
                               },
                               child: _displayChild3(),
                             ),
@@ -145,8 +130,7 @@ class _AddProductState extends State<AddProduct> {
                       padding: const EdgeInsets.all(12.0),
                       child: TextFormField(
                         controller: productDescriptionController,
-                        decoration:
-                            InputDecoration(hintText: 'Product description'),
+                        decoration: InputDecoration(hintText: 'Product description'),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'You must enter the product description';
@@ -179,8 +163,7 @@ class _AddProductState extends State<AddProduct> {
                       padding: const EdgeInsets.all(12.0),
                       child: TextFormField(
                         controller: productAvailable,
-                        decoration:
-                            InputDecoration(hintText: 'Availability: Y/N'),
+                        decoration: InputDecoration(hintText: 'Availability: Y/N'),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'You must enter Y(yes) or N(no)';
@@ -308,7 +291,8 @@ class _AddProductState extends State<AddProduct> {
   void validateAndUpload() async {
     if (_formKey.currentState.validate()) {
       setState(() => isLoading = true);
-      if (_image1 != null && _image2 != null && _image3 != null) {
+      // ignore: unnecessary_null_comparison
+      if (_image1 != null) {
         if (productAvailable != null) {
           String imageUrl1;
           String imageUrl2;
@@ -316,16 +300,13 @@ class _AddProductState extends State<AddProduct> {
 
           final _storage = FirebaseStorage.instance;
 
-          final String picture1 =
-              "1${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
+          final String picture1 = "1${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
           UploadTask task1 = _storage.ref().child(picture1).putFile(_image1);
 
-          final String picture2 =
-              "2${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
+          final String picture2 = "2${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
           UploadTask task2 = _storage.ref().child(picture2).putFile(_image2);
 
-          final String picture3 =
-              "3${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
+          final String picture3 = "3${DateTime.now().millisecondsSinceEpoch.toString()}.jpg";
           UploadTask task3 = _storage.ref().child(picture3).putFile(_image3);
 
           TaskSnapshot snapshot1 = await task1.then((snapshot) => snapshot);

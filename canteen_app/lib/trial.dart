@@ -18,32 +18,31 @@ TextEditingController val = new TextEditingController(text: "1");
 class VideoScreenState extends State<ShowCategory> {
   VideoScreenState();
 
-
-    @override
-    void _increment() {
-      if (_defaultValue <= 50) {
-        setState(() {
-          val.text = (int.parse(val.text.toString()) + 1).toString();
-          _defaultValue++;
-        });
-      }
+  @override
+  void _increment() {
+    if (_defaultValue <= 50) {
+      setState(() {
+        val.text = (int.parse(val.text.toString()) + 1).toString();
+        _defaultValue++;
+      });
     }
+  }
 
   void _decrement() {
     if (_defaultValue > 1) {
       setState(() {
-        val.text = (int.parse(val.text.toString())- 1 ).toString();
+        val.text = (int.parse(val.text.toString()) - 1).toString();
         _defaultValue--;
       });
     }
   }
+
   Widget build(BuildContext context) {
     return Container(
       height: 270,
       child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('products').snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
               return Center(
                 child: CircularProgressIndicator(),
@@ -63,12 +62,25 @@ class VideoScreenState extends State<ShowCategory> {
                 return Column(
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.only(
-                          left: 10, right: 5, top: 5, bottom: 5),
+                      padding: EdgeInsets.only(left: 5, right: 10, top: 25, bottom: 5),
                       decoration: BoxDecoration(boxShadow: []),
                       child: Card(
                         color: Colors.white,
                         elevation: 0,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Center(
+                            child: Image.network(
+                              document['images'][0].toString(),
+
+                              //'assets/images/popular_foods/ic_popular_food_1' +
+                              // ".png",
+                              width: 150,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(5.0),
@@ -76,26 +88,12 @@ class VideoScreenState extends State<ShowCategory> {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Center(
-                          child: Image.network(
-                        document['images'][0].toString(),
-                        //'assets/images/popular_foods/ic_popular_food_1' +
-                        // ".png",
-                        width: 130,
-                        height: 100,
-                      )),
-                    ),
-                    RaisedButton(
+                    ElevatedButton(
                         child: Text("add to cart"),
                         onPressed: () {
                           showDialog(
-                            context: context,
-                            child: new Dialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
+                            builder: (context) => new Dialog(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
                               child: Container(
                                 height: 300,
                                 child: new Column(
@@ -132,8 +130,7 @@ class VideoScreenState extends State<ShowCategory> {
                                       padding: EdgeInsets.all(10),
                                       child: new Center(
                                         child: new Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Container(
                                               width: 35,
@@ -147,15 +144,18 @@ class VideoScreenState extends State<ShowCategory> {
                                                 backgroundColor: Colors.white,
                                               ),
                                             ),
-                                            Container(width: 20, height: 10 ,child: new TextField(controller: val,)),
-
+                                            Container(
+                                                width: 20,
+                                                height: 10,
+                                                child: new TextField(
+                                                  controller: val,
+                                                )),
                                             Container(
                                               width: 35,
                                               height: 35,
                                               child: new FloatingActionButton(
                                                 onPressed: _increment,
-                                                child: new Icon(Icons.add,
-                                                    color: Colors.black),
+                                                child: new Icon(Icons.add, color: Colors.black),
                                                 backgroundColor: Colors.white,
                                               ),
                                             ),
@@ -170,11 +170,7 @@ class VideoScreenState extends State<ShowCategory> {
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         onPressed: () {
-                                          addToCart(
-                                            document['name'],
-                                            document['price'],
-                                            context
-                                          );
+                                          addToCart(document['name'], document['price'], context);
 
                                           _defaultValue = 1;
                                           val.text = "1";
@@ -183,6 +179,7 @@ class VideoScreenState extends State<ShowCategory> {
                                 ),
                               ),
                             ),
+                            context: context,
                           );
                         }),
                     Row(
@@ -192,10 +189,7 @@ class VideoScreenState extends State<ShowCategory> {
                           alignment: Alignment.bottomLeft,
                           padding: EdgeInsets.only(left: 5, top: 5),
                           child: Text(document['name'],
-                              style: TextStyle(
-                                  color: Color(0xFF6e6e71),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500)),
+                              style: TextStyle(color: Color(0xFF6e6e71), fontSize: 15, fontWeight: FontWeight.w500)),
                         ),
                       ],
                     ),
@@ -206,10 +200,7 @@ class VideoScreenState extends State<ShowCategory> {
                           alignment: Alignment.bottomLeft,
                           padding: EdgeInsets.only(left: 5, top: 5, right: 5),
                           child: Text('Rs. ' + document['price'].toString(),
-                              style: TextStyle(
-                                  color: Color(0xFF6e6e71),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600)),
+                              style: TextStyle(color: Color(0xFF6e6e71), fontSize: 12, fontWeight: FontWeight.w600)),
                         ),
                       ],
                     ),
@@ -233,10 +224,10 @@ void addToCart(var name, var price, context) {
   reload(context);
 }
 
-void reload(context){
+void reload(context) {
   print("reload");
   Navigator.push(
     context,
-   MaterialPageRoute(builder: (context) => HomePage()),
+    MaterialPageRoute(builder: (context) => HomePage()),
   );
 }

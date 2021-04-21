@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:canteen_app/pages/FoodDetailsPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:canteen_app/pages/HomePage.dart';
 
 class PopularFoodsWidget extends StatefulWidget {
   @override
@@ -33,6 +32,7 @@ class _PopularFoodsWidgetState extends State<PopularFoodsWidget> {
 
 TextEditingController q = new TextEditingController(text: "1");
 
+// ignore: must_be_immutable
 class PopularFoodTiles extends StatelessWidget {
   String name;
   String imageUrl;
@@ -48,17 +48,18 @@ class PopularFoodTiles extends StatelessWidget {
     @required this.price,
   }) : super(key: key);
 
-
-
-
   @override
+  // ignore: override_on_non_overriding_member
   void minus() {
-    setState(){
+    // ignore: unused_element
+    setState() {
       _n--;
     }
   }
+
   void add() {
-    setState(){
+    // ignore: unused_element
+    setState() {
       _n++;
     }
   }
@@ -103,16 +104,13 @@ class PopularFoodTiles extends StatelessWidget {
                               child: Container(
                                 height: 28,
                                 width: 28,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white70,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xFFfae3e2),
-                                        blurRadius: 25.0,
-                                        offset: Offset(0.0, 0.75),
-                                      ),
-                                    ]),
+                                decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white70, boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xFFfae3e2),
+                                    blurRadius: 25.0,
+                                    offset: Offset(0.0, 0.75),
+                                  ),
+                                ]),
                                 child: Icon(
                                   Icons.favorite,
                                   color: Color(0xFFfb3132),
@@ -125,8 +123,7 @@ class PopularFoodTiles extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: Center(
                                 child: Image.asset(
-                              'assets/images/popular_foods/ic_popular_food_1' +
-                                  ".png",
+                              'assets/images/popular_foods/ic_popular_food_1' + ".png",
                               width: 130,
                               height: 140,
                             )),
@@ -138,97 +135,86 @@ class PopularFoodTiles extends StatelessWidget {
                           onPressed: () {
 // /<<<<<<< ui
                             showDialog(
-                                context: context,
-                                child: new Dialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
-                                  child: Container(
-                                    height: 300,
-                                    child: new Column(
-                                      children: <Widget>[
-                                        Padding(padding: EdgeInsets.all(30)),
-                                        Text(
-                                          "Name: " + name,
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Price: " + price,
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Quantity:",
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        /*new TextField(
+                                builder: (context) => new Dialog(
+                                      shape:
+                                          RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                      child: Container(
+                                        height: 300,
+                                        child: new Column(
+                                          children: <Widget>[
+                                            Padding(padding: EdgeInsets.all(30)),
+                                            Text(
+                                              "Name: " + name,
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              "Price: " + price,
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Text(
+                                              "Quantity:",
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            /*new TextField(
                                           decoration: new InputDecoration(
                                               hintText: "Quantity"),
                                           controller: q,
                                         ),*/
-                                        Container(
-                                          child: new Center(
-                                            child: new Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  child:
-                                                      new FloatingActionButton(
-                                                    onPressed: add,
-                                                    child: new Icon(
-                                                      Icons.remove,
-                                                      color: Colors.black,
+                                            Container(
+                                              child: new Center(
+                                                child: new Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      width: 35,
+                                                      height: 35,
+                                                      child: new FloatingActionButton(
+                                                        onPressed: add,
+                                                        child: new Icon(
+                                                          Icons.remove,
+                                                          color: Colors.black,
+                                                        ),
+                                                        backgroundColor: Colors.white,
+                                                      ),
                                                     ),
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                  ),
+                                                    new Text(_n.toString(), style: new TextStyle(fontSize: 18.0)),
+                                                    Container(
+                                                      width: 35,
+                                                      height: 35,
+                                                      child: new FloatingActionButton(
+                                                        onPressed: minus,
+                                                        child: new Icon(Icons.add, color: Colors.black),
+                                                        backgroundColor: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                new Text(
-                                                    _n.toString(),
-                                                    style: new TextStyle(
-                                                        fontSize: 18.0)),
-                                                Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  child:
-                                                      new FloatingActionButton(
-                                                    onPressed: minus,
-                                                    child: new Icon(Icons.add,
-                                                        color: Colors.black),
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
+                                            new FlatButton(
+                                                color: Colors.blueAccent,
+                                                child: new Text(
+                                                  "Add",
+                                                  style: TextStyle(color: Colors.white),
+                                                ),
+                                                onPressed: () {
+                                                  addToCart(name, price);
+                                                  Navigator.pop(context);
+                                                }),
+                                          ],
                                         ),
-                                        new FlatButton(
-                                            color: Colors.blueAccent,
-                                            child: new Text(
-                                              "Add",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            onPressed: () {
-                                              addToCart(name, price);
-                                              Navigator.pop(context);
-                                            }),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ));
+                                context: context);
 // =======
                             // addToCart(this.name, this.price);
 // />>>>>>> main
@@ -240,10 +226,7 @@ class PopularFoodTiles extends StatelessWidget {
                             alignment: Alignment.bottomLeft,
                             padding: EdgeInsets.only(left: 5, top: 5),
                             child: Text(name,
-                                style: TextStyle(
-                                    color: Color(0xFF6e6e71),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500)),
+                                style: TextStyle(color: Color(0xFF6e6e71), fontSize: 15, fontWeight: FontWeight.w500)),
                           ),
                           Container(
                             alignment: Alignment.topRight,
@@ -251,16 +234,13 @@ class PopularFoodTiles extends StatelessWidget {
                             child: Container(
                               height: 28,
                               width: 28,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white70,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xFFfae3e2),
-                                      blurRadius: 25.0,
-                                      offset: Offset(0.0, 0.75),
-                                    ),
-                                  ]),
+                              decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white70, boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xFFfae3e2),
+                                  blurRadius: 25.0,
+                                  offset: Offset(0.0, 0.75),
+                                ),
+                              ]),
                               child: Icon(
                                 Icons.near_me,
                                 color: Color(0xFFfb3132),
@@ -280,10 +260,8 @@ class PopularFoodTiles extends StatelessWidget {
                                 alignment: Alignment.topLeft,
                                 padding: EdgeInsets.only(left: 5, top: 5),
                                 child: Text("rating",
-                                    style: TextStyle(
-                                        color: Color(0xFF6e6e71),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400)),
+                                    style:
+                                        TextStyle(color: Color(0xFF6e6e71), fontSize: 10, fontWeight: FontWeight.w400)),
                               ),
                               Container(
                                 padding: EdgeInsets.only(top: 3, left: 5),
@@ -323,10 +301,7 @@ class PopularFoodTiles extends StatelessWidget {
                             alignment: Alignment.bottomLeft,
                             padding: EdgeInsets.only(left: 5, top: 5, right: 5),
                             child: Text('\$' + price,
-                                style: TextStyle(
-                                    color: Color(0xFF6e6e71),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600)),
+                                style: TextStyle(color: Color(0xFF6e6e71), fontSize: 12, fontWeight: FontWeight.w600)),
                           ),
                         ],
                       )
@@ -350,15 +325,11 @@ class PopularFoodTitle extends StatelessWidget {
         children: <Widget>[
           Text(
             "Popluar Foods",
-            style: TextStyle(
-                fontSize: 20,
-                color: Color(0xFF3a3a3b),
-                fontWeight: FontWeight.w300),
+            style: TextStyle(fontSize: 20, color: Color(0xFF3a3a3b), fontWeight: FontWeight.w300),
           ),
           Text(
             "See all",
-            style: TextStyle(
-                fontSize: 16, color: Colors.blue, fontWeight: FontWeight.w100),
+            style: TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.w100),
           )
         ],
       ),
@@ -373,51 +344,15 @@ class PopularFoodItems extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       //itemBuilder: (BuildContext ctxt, int index) => getItems(),
       children: <Widget>[
-        PopularFoodTiles(
-            name: "Fried Egg",
-            imageUrl: "ic_popular_food_1",
-            price: '15',
-            description: "fried_egg"),
-        PopularFoodTiles(
-            name: "Mixed Vegetable",
-            imageUrl: "ic_popular_food_3",
-            price: "17",
-            description: ""),
-        PopularFoodTiles(
-            name: "Salad With Chicken",
-            imageUrl: "ic_popular_food_4",
-            price: "11",
-            description: ""),
-        PopularFoodTiles(
-            name: "Mixed Salad",
-            imageUrl: "ic_popular_food_5",
-            price: "11",
-            description: ""),
-        PopularFoodTiles(
-            name: "Red meat,Salad",
-            imageUrl: "ic_popular_food_2",
-            price: "12",
-            description: ""),
-        PopularFoodTiles(
-            name: "Mixed Salad",
-            imageUrl: "ic_popular_food_5",
-            price: "11",
-            description: ""),
-        PopularFoodTiles(
-            name: "Potato,Meat fry",
-            imageUrl: "ic_popular_food_6",
-            price: "23",
-            description: ""),
-        PopularFoodTiles(
-            name: "Fried Egg",
-            imageUrl: "ic_popular_food_1",
-            price: '12',
-            description: "fried_egg"),
-        PopularFoodTiles(
-            name: "Red meat,Salad",
-            imageUrl: "ic_popular_food_2",
-            price: "12",
-            description: ""),
+        PopularFoodTiles(name: "Fried Egg", imageUrl: "ic_popular_food_1", price: '15', description: "fried_egg"),
+        PopularFoodTiles(name: "Mixed Vegetable", imageUrl: "ic_popular_food_3", price: "17", description: ""),
+        PopularFoodTiles(name: "Salad With Chicken", imageUrl: "ic_popular_food_4", price: "11", description: ""),
+        PopularFoodTiles(name: "Mixed Salad", imageUrl: "ic_popular_food_5", price: "11", description: ""),
+        PopularFoodTiles(name: "Red meat,Salad", imageUrl: "ic_popular_food_2", price: "12", description: ""),
+        PopularFoodTiles(name: "Mixed Salad", imageUrl: "ic_popular_food_5", price: "11", description: ""),
+        PopularFoodTiles(name: "Potato,Meat fry", imageUrl: "ic_popular_food_6", price: "23", description: ""),
+        PopularFoodTiles(name: "Fried Egg", imageUrl: "ic_popular_food_1", price: '12', description: "fried_egg"),
+        PopularFoodTiles(name: "Red meat,Salad", imageUrl: "ic_popular_food_2", price: "12", description: ""),
       ],
     );
   }

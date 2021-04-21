@@ -1,16 +1,13 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FoodDetailsSlider extends StatelessWidget {
   String slideImage1;
   String slideImage2;
   String slideImage3;
 
-  FoodDetailsSlider(
-      {Key key,
-      @required this.slideImage1,
-      @required this.slideImage2,
-      @required this.slideImage3})
+  FoodDetailsSlider({Key key, @required this.slideImage1, @required this.slideImage2, @required this.slideImage3})
       : super(key: key);
 
   @override
