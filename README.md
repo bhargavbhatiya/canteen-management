@@ -13,10 +13,7 @@ We have two Applications, User App and Admin App.
            
 # Tech-Stack
 
-<img alt="Flutter" src="https://img.shields.io/badge/Flutter%20-%2302569B.svg?&style=for-the-badge&logo=Flutter&logoColor=white" />	<img alt="Dart" src="https://img.shields.io/badge/dart-%230175C2.svg?&style=for-the-badge&logo=dart&logoColor=white"/>	<img alt="Firebase" src="https://img.shields.io/badge/firebase%20-%23039BE5.svg?&style=for-the-badge&logo=firebase"/>	         
-
-# Glimpses of our project
-<img alt="Flutter" src="https://github.com/Manzee1609/ApnaCanteen/blob/master/Images/ss10.png" height = "500" width = "250" />	<img alt="Dart" src="https://github.com/Manzee1609/ApnaCanteen/blob/master/Images/ss11.png" height = "500" width = "250"/>	<img alt="Firebase" src="https://github.com/Manzee1609/ApnaCanteen/blob/master/Images/ss12.png" height = "500" width = "250"/>	         
+<img alt="Flutter" src="https://img.shields.io/badge/Flutter%20-%2302569B.svg?&style=for-the-badge&logo=Flutter&logoColor=white" />	<img alt="Dart" src="https://img.shields.io/badge/dart-%230175C2.svg?&style=for-the-badge&logo=dart&logoColor=white"/>	<img alt="Firebase" src="https://img.shields.io/badge/firebase%20-%23039BE5.svg?&style=for-the-badge&logo=firebase"/>	                  
 
 
 # Features Of User App
@@ -58,4 +55,3 @@ We have two Applications, User App and Admin App.
 * Deep Patel
 * Bhargav Bhatiya
 * Sweta Kyada
-           
